@@ -1,0 +1,8 @@
+{
+  "db": {
+    "image": "postgres:17",
+    "memory": "256m",
+    "env": { "POSTGRES_PASSWORD": "cornershop", "POSTGRES_DB": "cornershop" },
+    "variables": { "DATABASE_URL": "postgres://postgres:cornershop@{{host}}:{{port}}/cornershop" }
+  }
+}
