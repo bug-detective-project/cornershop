@@ -1,0 +1,398 @@
+{
+  "format": "bug-detective-project",
+  "formatVersion": 1,
+  "project": {
+    "id": "cornershop",
+    "name": "CornerShop",
+    "difficulty": "beginner",
+    "stack": {
+      "frontend": "React · Vite · Tailwind",
+      "backend": "Node.js · Express",
+      "database": "PostgreSQL · Drizzle"
+    },
+    "services": {
+      "db": {
+        "image": "postgres:17",
+        "memory": "256m",
+        "env": {
+          "POSTGRES_PASSWORD": "cornershop",
+          "POSTGRES_DB": "cornershop"
+        },
+        "variables": {
+          "DATABASE_URL": "postgres://postgres:cornershop@{{host}}:{{port}}/cornershop"
+        }
+      }
+    }
+  },
+  "version": "1.0.0",
+  "createdAt": "2026-11-18T10:03:27.936Z",
+  "tickets": {
+    "total": 14,
+    "front": 8,
+    "back": 6
+  },
+  "entries": [
+    {
+      "id": "front-1",
+      "track": "front",
+      "order": 1,
+      "branch": "front-1",
+      "tag": "front-1-v1.0.0",
+      "commit": "baca2f1929ffb7b0bd0c2e5626632368d32f7685",
+      "commitMessage": "CornerShop release front-1",
+      "codeDigest": "sha256:372f8b189e8bfda5dfb7d387de5c3aa9158477021687767bcec9839be99ec298",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/front-1",
+        "files": 37,
+        "digest": "sha256:644e626625531ceecbc1b6a5004e682d36f65270f6500d5e8f570987bdbd4703"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Layout and CSS"
+        ],
+        "pt": [
+          "Layout e CSS"
+        ]
+      }
+    },
+    {
+      "id": "front-2",
+      "track": "front",
+      "order": 2,
+      "branch": "front-2",
+      "tag": "front-2-v1.0.0",
+      "commit": "ebecf0c79306fd7ee816dded0f30b2b282c1e8ea",
+      "commitMessage": "CornerShop release front-2",
+      "codeDigest": "sha256:76be59c9fe26c2c9a16c7d9ff4d412eae1db874a62da2bd39103aa906d29c9ef",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/front-2",
+        "files": 37,
+        "digest": "sha256:1afd3b1c02bde4fa59108ed42d7e46226b7a198df209817acd071e98a4eb0ebb"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Responsive design"
+        ],
+        "pt": [
+          "Responsividade"
+        ]
+      }
+    },
+    {
+      "id": "front-3",
+      "track": "front",
+      "order": 3,
+      "branch": "front-3",
+      "tag": "front-3-v1.0.0",
+      "commit": "e1d15f1158209a45978e10efa4564810ca13227a",
+      "commitMessage": "CornerShop release front-3",
+      "codeDigest": "sha256:9ee7678e081ad0083a4156a8d12eb9ba91d521c5b2c1a2eefc22427d5a93f097",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/front-3",
+        "files": 37,
+        "digest": "sha256:bcc547c92f83315cb1f44ceeb0d994fdd8be5628e03abd758ff7b3f96e7496da"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Rendering and lists"
+        ],
+        "pt": [
+          "Renderização e listas"
+        ]
+      }
+    },
+    {
+      "id": "front-4",
+      "track": "front",
+      "order": 4,
+      "branch": "front-4",
+      "tag": "front-4-v1.0.0",
+      "commit": "bb99b3e9784c8ff20bce780db538212dd009de49",
+      "commitMessage": "CornerShop release front-4",
+      "codeDigest": "sha256:0ac9a666bd77dc6aac35d552cfe2e07846ab08e951160f3915e594bc4793c458",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/front-4",
+        "files": 37,
+        "digest": "sha256:317b2e621aa9dbfc0b55813dfab7fdacad6f82f73ad39bde94029d2d38a80ae3"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Routes and navigation"
+        ],
+        "pt": [
+          "Criação de rotas e navegação"
+        ]
+      }
+    },
+    {
+      "id": "front-5",
+      "track": "front",
+      "order": 5,
+      "branch": "front-5",
+      "tag": "front-5-v1.0.0",
+      "commit": "f95fcbe6dc3c477f9fe6a83e83c3cc938ec73977",
+      "commitMessage": "CornerShop release front-5",
+      "codeDigest": "sha256:edbc7cb9f928bd73a50a071f528954c3b5303dedbb39165d8ebb472eeb55f9a5",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/front-5",
+        "files": 37,
+        "digest": "sha256:64dd16a2ee884df62873d3a1e96e2b405a5a79043d0db6df9f42d5742ea41e89"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Accessibility"
+        ],
+        "pt": [
+          "Acessibilidade"
+        ]
+      }
+    },
+    {
+      "id": "front-6",
+      "track": "front",
+      "order": 6,
+      "branch": "front-6",
+      "tag": "front-6-v1.0.0",
+      "commit": "d403e78c8b9f12542f6035eb53b1688a743f7a19",
+      "commitMessage": "CornerShop release front-6",
+      "codeDigest": "sha256:1b098937b7f806fa815ad2c89c3532e483089728b3190f3a3b8a189e7bf4e166",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/front-6",
+        "files": 37,
+        "digest": "sha256:6dd7212c1dac89dd78825ceab903db8b7e52f4e16870b2957b195271cf233cdc"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Working with APIs",
+          "Using libraries correctly"
+        ],
+        "pt": [
+          "Consumo de API",
+          "Usar bibliotecas corretamente"
+        ]
+      }
+    },
+    {
+      "id": "front-7",
+      "track": "front",
+      "order": 7,
+      "branch": "front-7",
+      "tag": "front-7-v1.0.0",
+      "commit": "241623fcd649beaa8674cac0fa7c19c0a097d0bc",
+      "commitMessage": "CornerShop release front-7",
+      "codeDigest": "sha256:a559ef37f628001b5dc242959f827c09658f7777826c93946da10f811af1ce90",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/front-7",
+        "files": 37,
+        "digest": "sha256:3bdb6a6c4fad01755bca91c5f19896104154fb3e07b637854d6a1629f1ede2e4"
+      },
+      "type": "build",
+      "skills": {
+        "en": [
+          "Themes and design tokens"
+        ],
+        "pt": [
+          "Temas e tokens de design"
+        ]
+      }
+    },
+    {
+      "id": "front-8",
+      "track": "front",
+      "order": 8,
+      "branch": "front-8",
+      "tag": "front-8-v1.0.0",
+      "commit": "1cf590e4fdca23e78d4066bd9900584fdc6a140d",
+      "commitMessage": "CornerShop release front-8",
+      "codeDigest": "sha256:9250e047a32e8e06c864d0bf5b096216d1fb60d964167a3e9b71ad2e217dcd71",
+      "codeFiles": 153,
+      "package": {
+        "path": "tickets/front-8",
+        "files": 37,
+        "digest": "sha256:a2830a992b97586ac9fb7f9b4f534afdabcfa87e84ad666d7aeac1970d13c759"
+      },
+      "type": "build",
+      "skills": {
+        "en": [
+          "Building components",
+          "Routes and navigation"
+        ],
+        "pt": [
+          "Criação de componentes",
+          "Criação de rotas e navegação"
+        ]
+      }
+    },
+    {
+      "id": "back-1",
+      "track": "back",
+      "order": 1,
+      "branch": "back-1",
+      "tag": "back-1-v1.0.0",
+      "commit": "8c17bea0f69432640b0f38b519909aea9cf3f4d8",
+      "commitMessage": "CornerShop release back-1",
+      "codeDigest": "sha256:dc0d022f0e37f17f167d0d5637bed6edb5a05c4d482b5957755f138d2666830b",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/back-1",
+        "files": 37,
+        "digest": "sha256:1ac3f8d26a40e83e38209dceb3db833e1b9c1729126cdd04ffc4e6d0fcc74118"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "API design and HTTP"
+        ],
+        "pt": [
+          "Desenho de API e HTTP"
+        ]
+      }
+    },
+    {
+      "id": "back-2",
+      "track": "back",
+      "order": 2,
+      "branch": "back-2",
+      "tag": "back-2-v1.0.0",
+      "commit": "c6465daf0b2a14b6283d35372328bd6872006e55",
+      "commitMessage": "CornerShop release back-2",
+      "codeDigest": "sha256:204f988b4d0998271f6bfd052117ec08d56add1dfb47cd6b53daa53b3182a012",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/back-2",
+        "files": 37,
+        "digest": "sha256:7e7158e5cabb044a319413a6b04486b981691dc1797366cd46d7700f9950dfc1"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Databases and queries",
+          "Using libraries correctly"
+        ],
+        "pt": [
+          "Banco de dados e consultas",
+          "Usar bibliotecas corretamente"
+        ]
+      }
+    },
+    {
+      "id": "back-3",
+      "track": "back",
+      "order": 3,
+      "branch": "back-3",
+      "tag": "back-3-v1.0.0",
+      "commit": "76c84d46a1f63410548bb2bea7b623e11d0b134e",
+      "commitMessage": "CornerShop release back-3",
+      "codeDigest": "sha256:6505c4bca4e5585066cd02395309d65394b4185f169aeaf9b6849734cd56e65d",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/back-3",
+        "files": 37,
+        "digest": "sha256:fa95768c7a76980330dc74c9949d3964c20129fe7ceb9c938383805cdc6066fd"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Search, filters and pagination"
+        ],
+        "pt": [
+          "Busca, filtros e paginação"
+        ]
+      }
+    },
+    {
+      "id": "back-4",
+      "track": "back",
+      "order": 4,
+      "branch": "back-4",
+      "tag": "back-4-v1.0.0",
+      "commit": "2f46421531e6b456333af7b7d06cfd25a6ae48b3",
+      "commitMessage": "CornerShop release back-4",
+      "codeDigest": "sha256:5ee2082bd99d2f8abfcdc484030579e8fb6f53eee5a0a4097b9667d5a56305ea",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/back-4",
+        "files": 37,
+        "digest": "sha256:5e447c6954b411afa425b9174a280b5a94e3660f16347580f364b7ef249fcc10"
+      },
+      "type": "fix",
+      "skills": {
+        "en": [
+          "Tracing data flow",
+          "Reading errors and debugging"
+        ],
+        "pt": [
+          "Rastrear o fluxo de dados",
+          "Ler erros e depurar"
+        ]
+      }
+    },
+    {
+      "id": "back-5",
+      "track": "back",
+      "order": 5,
+      "branch": "back-5",
+      "tag": "back-5-v1.0.0",
+      "commit": "1789e089c8e6acbc66944ce2b334736013c63391",
+      "commitMessage": "CornerShop release back-5",
+      "codeDigest": "sha256:092730adda56e90ea0817d741394f6252ef1eb7a5215962d7cb60b68c2148a31",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/back-5",
+        "files": 37,
+        "digest": "sha256:5c887eff7d13c6d988c36dc61ea32dcd06a81b9f381cbb315cb0ab96bd2b5e53"
+      },
+      "type": "build",
+      "skills": {
+        "en": [
+          "Logging in code"
+        ],
+        "pt": [
+          "Registros no código"
+        ]
+      }
+    },
+    {
+      "id": "back-6",
+      "track": "back",
+      "order": 6,
+      "branch": "back-6",
+      "tag": "back-6-v1.0.0",
+      "commit": "b4ac82367174deaa015ade479cee06dfca50f5a7",
+      "commitMessage": "CornerShop release back-6",
+      "codeDigest": "sha256:508500dd48f1b846a505fb83082095648700aa507adcd55c9059f26d29251a61",
+      "codeFiles": 155,
+      "package": {
+        "path": "tickets/back-6",
+        "files": 37,
+        "digest": "sha256:a151199d16199ae950a1d2eb47c1a15c729ce8433d0b369d6753f474a8cba796"
+      },
+      "type": "build",
+      "skills": {
+        "en": [
+          "Routes and endpoints",
+          "Search, filters and pagination",
+          "Everyday data structures and algorithms"
+        ],
+        "pt": [
+          "Criação de rotas e endpoints",
+          "Busca, filtros e paginação",
+          "Estruturas de dados e algoritmos do dia a dia"
+        ]
+      }
+    }
+  ]
+}
