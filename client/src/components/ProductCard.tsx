@@ -15,8 +15,10 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="flex aspect-[4/3] w-full items-center justify-center bg-surface text-muted">No photo</div>
       )}
       <div className="flex items-baseline gap-3 px-4 pt-4">
-        <h3 data-testid="product-name" title={product.name} className="min-w-0 flex-1 truncate font-semibold">
-          <Link to={`/products/${product.id}`}>{product.name}</Link>
+        <h3 data-testid="product-name" title={product.name} className="min-w-0 flex-1 font-semibold">
+          <Link to={`/products/${product.id}`} className="block truncate">
+            {product.name}
+          </Link>
         </h3>
         <p data-testid="product-price" className="shrink-0 font-semibold">
           {formatPrice(product.priceCents)}
