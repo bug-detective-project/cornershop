@@ -1,0 +1,15 @@
+diff --git a/client/src/api/products.ts b/client/src/api/products.ts
+index 67a1bf0..8fb82af 100644
+--- a/client/src/api/products.ts
++++ b/client/src/api/products.ts
+@@ -44,10 +44,8 @@ export function useProduct(id: string | undefined) {
+ // reach those copies by itself: each mutation below marks them out of date when it succeeds.
+ 
+ export function useCreateProduct() {
+-  const queryClient = useQueryClient();
+   return useMutation({
+     mutationFn: (input: ProductInput) => request<Product>('/api/products', { method: 'POST', body: input }),
+-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['products'] }),
+   });
+ }
+ 

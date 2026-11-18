@@ -1,0 +1,63 @@
+diff --git a/server/src/app.ts b/server/src/app.ts
+index 8aa27e7..30ca40d 100644
+--- a/server/src/app.ts
++++ b/server/src/app.ts
+@@ -1,7 +1,7 @@
+ import express from 'express';
+ import type { ErrorRequestHandler, Express, RequestHandler } from 'express';
+ import type { Db } from './db.ts';
+-import { requestIdOf, requestLog } from './log.ts';
++import { requestLog } from './log.ts';
+ import type { Log } from './log.ts';
+ import { categoriesRouter } from './routes/categories.ts';
+ import { productsRouter } from './routes/products.ts';
+@@ -53,8 +53,7 @@ export function handleErrors(log: Log): ErrorRequestHandler {
+       res.status(400).json({ error: 'Request body must be valid JSON' });
+       return;
+     }
+-    const requestId = requestIdOf(res);
+-    log(JSON.stringify({ requestId, level: 'error', message: error instanceof Error ? error.message : String(error) }));
+-    res.status(500).json({ error: 'Internal server error', requestId });
++    log(JSON.stringify({ level: 'error', message: error instanceof Error ? error.message : String(error) }));
++    res.status(500).json({ error: 'Internal server error' });
+   };
+ }
+diff --git a/server/src/log.ts b/server/src/log.ts
+index 72554be..1b52c9a 100644
+--- a/server/src/log.ts
++++ b/server/src/log.ts
+@@ -1,32 +1,15 @@
+-import { randomUUID } from 'node:crypto';
+-import type { RequestHandler, Response } from 'express';
++import type { RequestHandler } from 'express';
+ 
+ /** Where the log lines go: the console in the app, an array in the tests. */
+ export type Log = (line: string) => void;
+ 
+-/** An id a caller may send in X-Request-Id: letters, digits and dashes, 8 to 64 characters. */
+-const REQUEST_ID = /^[A-Za-z0-9-]{8,64}$/;
+-
+-/** The id of the request an answer belongs to. */
+-export const requestIdOf = (res: Response): string => res.locals.requestId as string;
+-
+-/**
+- * One JSON line per request, written when the answer is sent. Every request gets an id (the
+- * caller's own, when it sent a plain one): it goes back in the X-Request-Id header and into every
+- * line the request logs, so one request can be followed through the log.
+- */
++/** One JSON line per request, written when the answer is sent. */
+ export function requestLog(log: Log): RequestHandler {
+   return (req, res, next) => {
+-    const sent = req.get('x-request-id');
+-    const requestId = sent !== undefined && REQUEST_ID.test(sent) ? sent : randomUUID();
+-    res.locals.requestId = requestId;
+-    res.setHeader('X-Request-Id', requestId);
+-
+     const started = performance.now();
+     res.on('finish', () => {
+       log(
+         JSON.stringify({
+-          requestId,
+           method: req.method,
+           path: req.originalUrl.split('?')[0],
+           status: res.statusCode,

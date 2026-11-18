@@ -1,0 +1,13 @@
+{
+  "type": "fix",
+  "skills": {
+    "en": [
+      "Databases and queries",
+      "Using libraries correctly"
+    ],
+    "pt": [
+      "Banco de dados e consultas",
+      "Usar bibliotecas corretamente"
+    ]
+  }
+}

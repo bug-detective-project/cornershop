@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Siga um valor pela viagem inteira: o banco, a resposta da API, a tela. Para o Sourdough Loaf, o `psql` dá o primeiro, a aba Network do DevTools (ou o `curl`) o segundo, e a página o terceiro. Em qual passo 450 deixa de ser 450?",
+    "Duas requisições trazem o mesmo produto: a lista (`GET /api/products`) e os detalhes (`GET /api/products/<id>`). Compare o `priceCents` nas duas respostas. A tela formata as duas do mesmo jeito, então a diferença já está no dado que ela recebe.",
+    "Em `server/src/repository.ts`, duas funções transformam uma linha do banco no que a API responde: uma para a lista e uma para os detalhes. Elas parecem iguais. Uma linha não é."
+  ]
+}

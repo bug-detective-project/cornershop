@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Quem relatou deixou uma pista no último comentário: a API sozinha parece certa, a loja não. Abra a aba Network e olhe a requisição exata que a loja envia para a página 2. O que ela envia que a sua requisição manual não enviou?",
+    "Chame a API com o tamanho de página da loja: `curl \"http://localhost:3001/api/products?pageSize=12&page=1\"` e depois `&page=2`. Para a página 2 de doze, a lista precisa pular os 12 primeiros produtos. Quantos ela pula?",
+    "No `listProducts` (`server/src/repository.ts`), o `limit` é quantas linhas devolver e o `offset` é quantas pular: `(page - 1)` vezes o tamanho da página. Confira qual tamanho de página cada um dos dois usa."
+  ]
+}

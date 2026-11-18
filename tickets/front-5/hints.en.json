@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Put the mouse away and use only Tab, Enter and Space in the panel. Then open the Elements panel of the DevTools and compare a stock control with the Edit button in the same row: which HTML element is each one?",
+    "A `<button>` gives you four things for free: a place in the Tab order, Enter and Space, the role \"button\" for screen readers, and the `disabled` state. A `<span>` with `onClick` gives you none of them; it only answers a mouse.",
+    "Look at `client/src/components/StockStepper.tsx`. The two controls should be `<button type=\"button\">`. The visible text is only \"−\" or \"+\", so each one also needs a name that says what it does and to which product: `aria-label`."
+  ]
+}

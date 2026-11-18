@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Open the card in the browser DevTools and look at the line that holds the name and the price. Select the name element: how wide is it compared with the card? Then select the price.",
+    "The name and the price are two items of one flex row. The link inside the name has the classes that cut text with an ellipsis, but an ellipsis only appears when the box around the text is narrower than the text. What decides the smallest width a flex item may have?",
+    "A flex item never shrinks below the width of its content unless it is told it may: `min-width: 0` (`min-w-0` in Tailwind). Look at the `<h3>` in `client/src/components/ProductCard.tsx`, and at what keeps the price from shrinking."
+  ]
+}

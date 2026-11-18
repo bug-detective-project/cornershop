@@ -42,7 +42,64 @@
       "subject": "Welcome to the CornerShop project!",
       "body": "Hi, and welcome aboard!\n\nI'm Rafaela, the engineering manager here. You're joining **CornerShop**, the website we're building for **Juniper Street Market**, a neighborhood grocery. Marta, the owner, updates it herself every morning, and her customers check it before they walk over, so what breaks here is noticed the same day.\n\nHere's how we work:\n\n- Your tickets show up on the **Board**. Take one at a time: drag it to **In Progress** when you start, and to **In QA** when you think it's done. Some tickets are bugs to fix; others ask you to build something that is missing.\n- The code lives in your workspace container. **Open in VS Code** attaches your editor to it, with Node, the terminal and the debugger already set up. Run `npm run dev` in the VS Code terminal and use **Open app in browser** to try the shop.\n- This project has a real database server: a **PostgreSQL** that runs next to your workspace. The Dashboard shows whether it is ready. To look inside, run `psql \"$DATABASE_URL\"` in the VS Code terminal, and `npm run db:reset` puts the sample shop back whenever you want a clean start.\n- QA runs the project tests first, then checks the ticket itself. If something fails, the card comes back with notes.\n- Stuck? Message **Priya** from the ticket. She'll point you in the right direction, one hint at a time.\n\nWhen you're ready, click **Get next assignment**. I picked a nice first one for you.\n\nRafaela"
     },
-    "assignments": {},
+    "assignments": {
+      "back-1": {
+        "subject": "New ticket: CS-201",
+        "body": "A typo in the supplier's price file put a product in the shop at -$5.00, and the API answered \"created\" as if nothing was wrong. Marta wants the API to refuse prices that make no sense.\n\nYou do not need the browser for this one: `curl` is the fastest way to see what the API accepts.\n\nRafaela"
+      },
+      "back-2": {
+        "subject": "New ticket: CS-202",
+        "body": "Marta adds new products first and files them under a category later, and those products are nowhere to be seen until she does. The database has them; the shop does not list them.\n\nThis project has a real PostgreSQL next to your workspace. `psql \"$DATABASE_URL\"` in the terminal lets you ask the database directly, which is the quickest way to see who is right.\n\nRafaela"
+      },
+      "back-3": {
+        "subject": "New ticket: CS-203",
+        "body": "A customer says she keeps seeing the same products as she pages through the shop, and Lucy confirmed it: page 2 starts with the end of page 1, and the last products never show up. The pagination tests of the API pass.\n\nRead Lucy's last comment on the ticket carefully. The difference between what she tried by hand and what the shop does is the whole bug.\n\nRafaela"
+      },
+      "back-4": {
+        "subject": "New ticket: CS-204",
+        "body": "A customer asked for a loaf at five cents, because that is what the product page said. The card in the shop says $4.50 and the database says 450. Somewhere between the database and the page the price is being changed.\n\nDo not start from the page that looks wrong. Follow the number: database, API, screen.\n\nRafaela"
+      },
+      "back-5": {
+        "subject": "New ticket: CS-205",
+        "body": "Lucy tries to find a customer's failed request in the log of the API and gets hundreds of lines that look alike. She wants every request to have an id, visible in the answer and written on its log lines.\n\nThis is a build ticket. The request log already exists; read how it works first, because the id has to be decided before the log line is written.\n\nRafaela"
+      },
+      "back-6": {
+        "subject": "New ticket: CS-206",
+        "body": "The shop page already has a **Sort by** select and two price fields, and it sends all three to the API. The API ignores them. Marta wants \"cheapest first\" and \"what do you have under five dollars\" to work.\n\nThis is a build ticket on the API. The ticket says exactly what each parameter must do, including the awkward cases. Read how the existing parameters are handled before you add the new ones.\n\nRafaela"
+      },
+      "front-1": {
+        "subject": "New ticket: CS-101",
+        "body": "Marta added a new loaf with a very long name, and its card on the shop page fell apart: the name runs across the card and the price is gone.\n\nIt is a small one, and a good way to get to know the storefront. Reproduce it first and inspect the card in the browser DevTools.\n\nRafaela"
+      },
+      "front-2": {
+        "subject": "New ticket: CS-102",
+        "body": "Lucy has customers saying the shop does not fit on their phones: one column, cut off on the right, and the page slides sideways. Most people open the shop on a phone, so this one hurts.\n\nUse the device mode of the browser DevTools to reproduce it; you do not need a phone.\n\nRafaela"
+      },
+      "front-3": {
+        "subject": "New ticket: CS-103",
+        "body": "A customer opened the details of a product, sorted the list by price, and the open details were suddenly under a different product. Lucy can reproduce it every time.\n\nThe list itself is in the right order, so look at what stays in place when it should move.\n\nRafaela"
+      },
+      "front-4": {
+        "subject": "New ticket: CS-104",
+        "body": "Lucy sends customers links to a shelf of the shop, and the link opens the whole shop instead. The category filter is also gone after a reload, while the search is not.\n\nCompare how the two filters behave before you open the code; the difference tells you where to look.\n\nRafaela"
+      },
+      "front-5": {
+        "subject": "New ticket: CS-105",
+        "body": "Dev keeps the stock up to date from the counter with a keyboard only, and the **−** and **+** of the panel cannot be reached with Tab. A colleague of his with a screen reader gets nothing from them either.\n\nPut your mouse aside for this one and try the panel the way Dev uses it.\n\nRafaela"
+      },
+      "front-6": {
+        "subject": "New ticket: CS-106",
+        "body": "Marta added the same product three times, because after **Product created** it was not in the list. It was saved every time; the list only caught up after a reload.\n\nEditing and deleting do not have the problem, which is a good clue. Keep the Network tab open while you reproduce it.\n\nRafaela"
+      },
+      "front-7": {
+        "subject": "New ticket: CS-107",
+        "body": "This one is not a bug: it is work that was left unfinished. The shop has a dark theme, and the header and the product cards were never moved to it, so at night customers get bright white cards on a dark page.\n\nThe color tokens already exist and the rest of the app uses them. Read how before you start.\n\nRafaela"
+      },
+      "front-8": {
+        "subject": "New ticket: CS-108",
+        "body": "Marta wants customers to be able to look at a product properly: photos, description, whether it is in stock. The cards of the shop already link to a product page, but the page was never built, so the link lands on \"Page not found\".\n\nThis is a build ticket: the API and the data hook are ready, and the ticket lists exactly what the page must show. Start small, with the route.\n\nRafaela"
+      }
+    },
     "completion": {
       "subject": "CornerShop: project done!",
       "body": "You completed the whole {{track}} track of CornerShop, so this project is done on your side. Marta says the shop's website has never been this dependable, and Dev and Lucy send their thanks too.\n\nYou can keep going with the other tracks of CornerShop whenever you like. New projects are on their way too.\n\nThanks for the effort.\n\nRafaela"

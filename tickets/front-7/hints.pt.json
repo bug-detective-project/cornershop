@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Troque para o tema escuro e compare o cabeçalho e um cartão com os filtros acima da lista, no painel Elements do DevTools. Olhe as classes que definem cor em cada um: que tipo de classe os filtros usam, e que tipo o cabeçalho e o cartão usam?",
+    "Uma classe como `bg-white` ou `text-slate-900` é uma cor fixa, a mesma em todo tema. Um token como `bg-surface-raised` ou `text-content` é um nome: o `client/src/styles.css` dá a ele um valor no tema claro e outro no escuro.",
+    "Em `Header.tsx` e `ProductCard.tsx`, troque cada cor fixa pelo token que faz o mesmo papel: fundo do cartão e do cabeçalho `surface-raised`, o espaço sem foto e a página atual `surface`, texto principal `content`, texto secundário `muted`, linhas `border`."
+  ]
+}

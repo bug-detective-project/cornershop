@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Reproduce it with the device mode of the DevTools at 375 px. Which element is wider than the screen: the page, the grid, or each card? Hover the elements in the Elements panel to see their boxes.",
+    "The grid decides its own columns: \"as many as fit, each at least this wide\". What happens to that rule when the screen is narrower than the minimum width of one column?",
+    "Look at the `grid-cols-[…]` class in `client/src/components/ProductGrid.tsx`. A minimum in pixels inside `minmax()` is a width the column will never go below, even when the screen is smaller. The minimum can be the smaller of two values: `min(100%, …)`."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Abra o cartão no DevTools do navegador e olhe a linha que tem o nome e o preço. Selecione o elemento do nome: qual a largura dele em relação ao cartão? Depois selecione o preço.",
+    "O nome e o preço são dois itens de uma linha flex. O link dentro do nome tem as classes que cortam o texto com reticências, mas as reticências só aparecem quando a caixa em volta do texto é mais estreita que o texto. O que decide a menor largura que um item flex pode ter?",
+    "Um item flex nunca encolhe abaixo da largura do seu conteúdo, a não ser que alguém diga que pode: `min-width: 0` (`min-w-0` no Tailwind). Olhe o `<h3>` em `client/src/components/ProductCard.tsx`, e o que impede o preço de encolher."
+  ]
+}

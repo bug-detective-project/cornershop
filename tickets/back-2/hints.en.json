@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Count on both sides. `psql \"$DATABASE_URL\" -c \"select count(*) from products\"` says how many products exist; `curl \"http://localhost:3001/api/products\"` says how many the API lists (`total`). Then find out what the missing ones have in common: `select name, category_id from products where category_id is null`.",
+    "The list shows each product with its category, so the query reads two tables. There is more than one way to join two tables, and they differ exactly in what happens to a row that has no partner in the other table.",
+    "Read `listProducts` in `server/src/repository.ts`. An inner join keeps only the products that have a category. A left join keeps every product and fills the category with null when there is none. The same join is in two queries of that function."
+  ]
+}

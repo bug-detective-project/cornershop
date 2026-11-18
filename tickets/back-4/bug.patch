@@ -1,0 +1,13 @@
+diff --git a/server/src/repository.ts b/server/src/repository.ts
+index f39ea32..644143b 100644
+--- a/server/src/repository.ts
++++ b/server/src/repository.ts
+@@ -36,7 +36,7 @@ function toDetail(product: ProductRow, category: CategoryRow | null, images: str
+     id: product.id,
+     name: product.name,
+     description: product.description,
+-    priceCents: product.priceCents,
++    priceCents: product.priceCents / 100,
+     stock: product.stock,
+     category: category ? { id: category.id, name: category.name, slug: category.slug } : null,
+     images,

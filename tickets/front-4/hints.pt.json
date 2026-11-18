@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Digite algo na busca e observe a barra de endereço. Depois escolha uma categoria e observe de novo. Um dos dois deixa rastro no endereço e o outro não.",
+    "Tudo o que precisa sobreviver a recarregar, a um link compartilhado e ao botão Voltar tem de morar na URL. Estado guardado dentro de um componente (`useState`) some no momento em que a página é carregada de novo. Onde cada filtro da vitrine guarda o seu valor?",
+    "Leia `client/src/pages/Storefront.tsx` e `client/src/filters.ts`. A busca, a ordem e a página vêm de `useFilters()`, que lê e escreve a URL. A categoria é a única que não vem."
+  ]
+}

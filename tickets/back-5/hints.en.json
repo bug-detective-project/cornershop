@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Run `npm run dev`, call `curl -i http://localhost:3001/api/categories` and read both sides: the headers of the answer, and the line the server printed. That line is written in `server/src/log.ts`. Everything you need to change starts there.",
+    "The middleware runs at the start of every request, before any route. That is the moment to decide the id (the caller's, when it is valid, or a new one), to put it on the answer with `res.setHeader`, and to keep it where the rest of the request can find it, such as `res.locals`.",
+    "The log line is written later, in the `finish` handler, which can read the id you decided earlier. For the error line, `handleErrors` in `server/src/app.ts` needs the same id: read it from where the middleware stored it. Check the caller's header with a regular expression before trusting it: it goes into your log."
+  ]
+}

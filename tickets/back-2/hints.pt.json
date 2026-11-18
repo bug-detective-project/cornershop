@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Conte dos dois lados. `psql \"$DATABASE_URL\" -c \"select count(*) from products\"` diz quantos produtos existem; `curl \"http://localhost:3001/api/products\"` diz quantos a API lista (`total`). Depois descubra o que os que faltam têm em comum: `select name, category_id from products where category_id is null`.",
+    "A lista mostra cada produto com a sua categoria, então a consulta lê duas tabelas. Há mais de um jeito de juntar duas tabelas, e eles diferem exatamente no que acontece com uma linha que não tem par na outra tabela.",
+    "Leia `listProducts` em `server/src/repository.ts`. Um inner join mantém só os produtos que têm categoria. Um left join mantém todo produto e preenche a categoria com null quando não há. A mesma junção está em duas consultas dessa função."
+  ]
+}

@@ -1,0 +1,15 @@
+diff --git a/server/src/validation.ts b/server/src/validation.ts
+index 3e5cb43..703a017 100644
+--- a/server/src/validation.ts
++++ b/server/src/validation.ts
+@@ -127,8 +127,8 @@ export function parseProduct(body: unknown, options: { partial?: boolean } = {})
+   }
+ 
+   if (sent('priceCents')) {
+-    if (!isCount(input.priceCents)) {
+-      fields.priceCents = 'priceCents must be a whole number of cents, 0 or more';
++    if (typeof input.priceCents !== 'number') {
++      fields.priceCents = 'priceCents must be a number of cents';
+     } else {
+       product.priceCents = input.priceCents;
+     }

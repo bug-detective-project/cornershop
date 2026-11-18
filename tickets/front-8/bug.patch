@@ -1,0 +1,111 @@
+diff --git a/client/src/App.tsx b/client/src/App.tsx
+index b45d5f8..2c1161e 100644
+--- a/client/src/App.tsx
++++ b/client/src/App.tsx
+@@ -2,7 +2,6 @@ import { Route, Routes } from 'react-router';
+ import { Header } from './components/Header.tsx';
+ import { Admin } from './pages/Admin.tsx';
+ import { NotFound } from './pages/NotFound.tsx';
+-import { ProductPage } from './pages/ProductPage.tsx';
+ import { Storefront } from './pages/Storefront.tsx';
+ 
+ export function App() {
+@@ -11,7 +10,6 @@ export function App() {
+       <Header />
+       <Routes>
+         <Route path="/" element={<Storefront />} />
+-        <Route path="/products/:id" element={<ProductPage />} />
+         <Route path="/admin" element={<Admin />} />
+         <Route path="*" element={<NotFound />} />
+       </Routes>
+diff --git a/client/src/components/Gallery.tsx b/client/src/components/Gallery.tsx
+deleted file mode 100644
+index 9f886e1..0000000
+--- a/client/src/components/Gallery.tsx
++++ /dev/null
+@@ -1,30 +0,0 @@
+-import { useState } from 'react';
+-
+-export function Gallery({ images, name }: { images: string[]; name: string }) {
+-  const [selected, setSelected] = useState(0);
+-
+-  if (images.length === 0) {
+-    return <div className="flex aspect-[4/3] w-full items-center justify-center rounded-xl border border-border bg-surface-raised text-muted">No photos yet</div>;
+-  }
+-
+-  return (
+-    <div className="flex flex-col gap-3">
+-      <img data-testid="gallery-main" src={images[selected]} alt={name} className="aspect-[4/3] w-full rounded-xl border border-border object-cover" />
+-      <ul className="flex flex-wrap gap-2">
+-        {images.map((image, index) => (
+-          <li key={image}>
+-            <button
+-              type="button"
+-              aria-label={`Show photo ${index + 1}`}
+-              aria-pressed={index === selected}
+-              className={`overflow-hidden rounded-lg border-2 ${index === selected ? 'border-accent' : 'border-border'}`}
+-              onClick={() => setSelected(index)}
+-            >
+-              <img src={image} alt="" className="h-16 w-20 object-cover" />
+-            </button>
+-          </li>
+-        ))}
+-      </ul>
+-    </div>
+-  );
+-}
+diff --git a/client/src/pages/ProductPage.tsx b/client/src/pages/ProductPage.tsx
+deleted file mode 100644
+index 4d29306..0000000
+--- a/client/src/pages/ProductPage.tsx
++++ /dev/null
+@@ -1,49 +0,0 @@
+-import { Link, useParams } from 'react-router';
+-import { ApiError } from '../api/http.ts';
+-import { useProduct } from '../api/products.ts';
+-import { Gallery } from '../components/Gallery.tsx';
+-import { formatPrice } from '../utils/formatPrice.ts';
+-import { NotFound } from './NotFound.tsx';
+-
+-export function ProductPage() {
+-  const { id } = useParams();
+-  const product = useProduct(id);
+-
+-  if (product.isPending) {
+-    return <main className="mx-auto max-w-6xl px-4 py-6 text-muted">Loading product…</main>;
+-  }
+-  if (product.isError) {
+-    if (product.error instanceof ApiError && product.error.status === 404) {
+-      return <NotFound title="Product not found" />;
+-    }
+-    return (
+-      <main className="mx-auto max-w-6xl px-4 py-6">
+-        <p role="alert" className="text-danger">
+-          The product could not be loaded.
+-        </p>
+-      </main>
+-    );
+-  }
+-
+-  const { name, description, priceCents, stock, category, images } = product.data;
+-  return (
+-    <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6">
+-      <Link to="/" className="self-start text-accent underline">
+-        Back to the shop
+-      </Link>
+-      <div className="grid gap-8 md:grid-cols-2">
+-        {/* A product of its own gets a gallery of its own: the selected photo starts again. */}
+-        <Gallery key={product.data.id} images={images} name={name} />
+-        <div className="flex flex-col gap-3">
+-          <p className="text-sm text-muted">{category ? category.name : 'Uncategorized'}</p>
+-          <h1 className="text-3xl font-bold">{name}</h1>
+-          <p data-testid="product-price" className="text-2xl font-semibold">
+-            {formatPrice(priceCents)}
+-          </p>
+-          <p className={stock > 0 ? 'font-medium text-accent' : 'font-medium text-danger'}>{stock > 0 ? 'In stock' : 'Out of stock'}</p>
+-          <p className="text-muted">{description || 'No description yet.'}</p>
+-        </div>
+-      </div>
+-    </main>
+-  );
+-}

@@ -1,0 +1,126 @@
+diff --git a/server/src/repository.ts b/server/src/repository.ts
+index f39ea32..23896be 100644
+--- a/server/src/repository.ts
++++ b/server/src/repository.ts
+@@ -1,8 +1,8 @@
+-import { and, asc, count, desc, eq, gte, ilike, inArray, lte, sql } from 'drizzle-orm';
++import { and, asc, count, eq, ilike, inArray, sql } from 'drizzle-orm';
+ import type { SQL } from 'drizzle-orm';
+ import type { Db } from './db.ts';
+ import { categories, productImages, products } from './schema.ts';
+-import type { Category, Product, ProductPage, Sort } from './types.ts';
++import type { Category, Product, ProductPage } from './types.ts';
+ import type { ListQuery, ProductInput } from './validation.ts';
+ 
+ type ProductRow = typeof products.$inferSelect;
+@@ -64,13 +64,6 @@ async function imagesOf(db: Db, ids: number[]): Promise<Map<number, string[]>> {
+ /** Letters in lower case, then plain character order: the same on every machine. */
+ const byName = sql`lower(${products.name}) collate "C"`;
+ 
+-/** Products that tie in the chosen order always come by id, so a page never depends on luck. */
+-const ORDERS: Record<Sort, SQL[]> = {
+-  name: [asc(byName), asc(products.id)],
+-  price_asc: [asc(products.priceCents), asc(products.id)],
+-  price_desc: [desc(products.priceCents), asc(products.id)],
+-  newest: [desc(products.createdAt), asc(products.id)],
+-};
+ 
+ /** In a LIKE pattern, % and _ mean "anything": what the shopper typed is plain text. */
+ const escapeLike = (text: string): string => text.replace(/[\\%_]/g, (character) => `\\${character}`);
+@@ -84,12 +77,6 @@ export async function listProducts(db: Db, query: ListQuery): Promise<ProductPag
+   if (query.q) {
+     filters.push(ilike(products.name, `%${escapeLike(query.q)}%`));
+   }
+-  if (query.minPrice !== undefined) {
+-    filters.push(gte(products.priceCents, query.minPrice));
+-  }
+-  if (query.maxPrice !== undefined) {
+-    filters.push(lte(products.priceCents, query.maxPrice));
+-  }
+   const where = and(...filters);
+ 
+   const [counted] = await db
+@@ -103,7 +90,7 @@ export async function listProducts(db: Db, query: ListQuery): Promise<ProductPag
+     .from(products)
+     .leftJoin(categories, eq(products.categoryId, categories.id))
+     .where(where)
+-    .orderBy(...ORDERS[query.sort])
++    .orderBy(asc(byName), asc(products.id))
+     .limit(pageSize)
+     .offset((page - 1) * pageSize);
+ 
+diff --git a/server/src/types.ts b/server/src/types.ts
+index 89ff31c..b2a19e5 100644
+--- a/server/src/types.ts
++++ b/server/src/types.ts
+@@ -26,8 +26,5 @@ export interface ProductPage {
+   pageSize: number;
+ }
+ 
+-export const SORTS = ['name', 'price_asc', 'price_desc', 'newest'] as const;
+-export type Sort = (typeof SORTS)[number];
+-
+ export const DEFAULT_PAGE_SIZE = 10;
+ export const MAX_PAGE_SIZE = 50;
+diff --git a/server/src/validation.ts b/server/src/validation.ts
+index 3e5cb43..edf2974 100644
+--- a/server/src/validation.ts
++++ b/server/src/validation.ts
+@@ -1,5 +1,4 @@
+-import { DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, SORTS } from './types.ts';
+-import type { Sort } from './types.ts';
++import { DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE } from './types.ts';
+ 
+ /** A request the client got wrong: answered with 400 and the message of each bad field. */
+ export class ValidationError extends Error {
+@@ -14,11 +13,8 @@ export class ValidationError extends Error {
+ export interface ListQuery {
+   page: number;
+   pageSize: number;
+-  sort: Sort;
+   category?: string;
+   q?: string;
+-  minPrice?: number;
+-  maxPrice?: number;
+ }
+ 
+ const text = (value: unknown): string | undefined => (typeof value === 'string' && value.trim() !== '' ? value.trim() : undefined);
+@@ -48,37 +44,10 @@ export function parseListQuery(query: Record<string, unknown>): ListQuery {
+     }
+   }
+ 
+-  let sort: Sort = 'name';
+-  if (query.sort !== undefined) {
+-    if (!(SORTS as readonly unknown[]).includes(query.sort)) {
+-      fields.sort = `sort must be one of: ${SORTS.join(', ')}`;
+-    } else {
+-      sort = query.sort as Sort;
+-    }
+-  }
+-
+-  let minPrice: number | undefined;
+-  if (query.minPrice !== undefined) {
+-    minPrice = wholeNumber(query.minPrice);
+-    if (minPrice === undefined) {
+-      fields.minPrice = 'minPrice must be a whole number of cents, 0 or more';
+-    }
+-  }
+-
+-  let maxPrice: number | undefined;
+-  if (query.maxPrice !== undefined) {
+-    maxPrice = wholeNumber(query.maxPrice);
+-    if (maxPrice === undefined) {
+-      fields.maxPrice = 'maxPrice must be a whole number of cents, 0 or more';
+-    } else if (minPrice !== undefined && maxPrice < minPrice) {
+-      fields.maxPrice = 'maxPrice must not be below minPrice';
+-    }
+-  }
+-
+   if (Object.keys(fields).length > 0) {
+     throw new ValidationError('Invalid query', fields);
+   }
+-  return { page, pageSize, sort, category: text(query.category), q: text(query.q), minPrice, maxPrice };
++  return { page, pageSize, category: text(query.category), q: text(query.q) };
+ }
+ 
+ export interface ProductInput {

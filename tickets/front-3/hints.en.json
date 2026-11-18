@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Reproduce it and watch closely: does the description text itself belong to the wrong product, or is the right text shown under the wrong card? Open the React DevTools and look at the state of the cards before and after sorting.",
+    "Whether the details are open is state inside each card component. When a list is rendered again in another order, React has to decide which old component matches which new item. What does it use to decide?",
+    "Look at the `key` of the list items in `client/src/components/ProductGrid.tsx`. A key that is the position in the list tells React \"the first card is still the first card\", whatever product is now in it."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Reproduza com o modo de dispositivo do DevTools em 375 px. Qual elemento é mais largo que a tela: a página, a grade ou cada cartão? Passe o mouse nos elementos do painel Elements para ver as caixas.",
+    "A grade decide as próprias colunas: \"quantas couberem, cada uma com pelo menos tal largura\". O que acontece com essa regra quando a tela é mais estreita que a largura mínima de uma coluna?",
+    "Olhe a classe `grid-cols-[…]` em `client/src/components/ProductGrid.tsx`. Um mínimo em pixels dentro de `minmax()` é uma largura da qual a coluna nunca passa para baixo, mesmo com a tela menor. O mínimo pode ser o menor de dois valores: `min(100%, …)`."
+  ]
+}

@@ -1,0 +1,20 @@
+diff --git a/server/src/repository.ts b/server/src/repository.ts
+index f39ea32..4a80a0c 100644
+--- a/server/src/repository.ts
++++ b/server/src/repository.ts
+@@ -95,13 +95,13 @@ export async function listProducts(db: Db, query: ListQuery): Promise<ProductPag
+   const [counted] = await db
+     .select({ total: count() })
+     .from(products)
+-    .leftJoin(categories, eq(products.categoryId, categories.id))
++    .innerJoin(categories, eq(products.categoryId, categories.id))
+     .where(where);
+ 
+   const rows = await db
+     .select({ product: products, category: categories })
+     .from(products)
+-    .leftJoin(categories, eq(products.categoryId, categories.id))
++    .innerJoin(categories, eq(products.categoryId, categories.id))
+     .where(where)
+     .orderBy(...ORDERS[query.sort])
+     .limit(pageSize)

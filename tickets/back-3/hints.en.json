@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "The reporter left a clue in the last comment: the API alone looks fine, the shop does not. Open the Network tab and look at the exact request the shop sends for page 2. What does it send that your manual request did not?",
+    "Call the API with the page size of the shop: `curl \"http://localhost:3001/api/products?pageSize=12&page=1\"` and then `&page=2`. For page 2 of twelve, the list must skip the first 12 products. How many does it skip?",
+    "In `listProducts` (`server/src/repository.ts`), `limit` is how many rows to return and `offset` is how many to skip: `(page - 1)` times the page size. Check which page size each of the two uses."
+  ]
+}

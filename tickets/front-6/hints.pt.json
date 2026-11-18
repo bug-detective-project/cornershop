@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Abra a aba Network do DevTools e cadastre um produto. Olhe as requisições: o `POST` e o status dele, e o que vem depois. Depois edite um produto e compare as requisições.",
+    "As listas da tela não são lidas do servidor a cada renderização: o TanStack Query guarda uma cópia de cada resposta num cache e reaproveita por um minuto. Escrever no servidor não muda essas cópias. Depois de uma mudança, alguém precisa dizer ao cache quais cópias ficaram desatualizadas.",
+    "Leia as três mutações no fim de `client/src/api/products.ts`. Duas delas fazem no `onSuccess` algo que a terceira não faz."
+  ]
+}

@@ -1,0 +1,21 @@
+diff --git a/server/src/repository.ts b/server/src/repository.ts
+index f39ea32..98b5d62 100644
+--- a/server/src/repository.ts
++++ b/server/src/repository.ts
+@@ -2,6 +2,7 @@ import { and, asc, count, desc, eq, gte, ilike, inArray, lte, sql } from 'drizzl
+ import type { SQL } from 'drizzle-orm';
+ import type { Db } from './db.ts';
+ import { categories, productImages, products } from './schema.ts';
++import { DEFAULT_PAGE_SIZE } from './types.ts';
+ import type { Category, Product, ProductPage, Sort } from './types.ts';
+ import type { ListQuery, ProductInput } from './validation.ts';
+ 
+@@ -105,7 +106,7 @@ export async function listProducts(db: Db, query: ListQuery): Promise<ProductPag
+     .where(where)
+     .orderBy(...ORDERS[query.sort])
+     .limit(pageSize)
+-    .offset((page - 1) * pageSize);
++    .offset((page - 1) * DEFAULT_PAGE_SIZE);
+ 
+   const images = await imagesOf(
+     db,

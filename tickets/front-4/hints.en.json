@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Type something in the search box and watch the address bar. Then choose a category and watch it again. One of them leaves a trace in the address and the other does not.",
+    "Anything that must survive a reload, a shared link and the Back button has to live in the URL. State kept inside a component (`useState`) is gone the moment the page is loaded again. Where does each filter of the storefront keep its value?",
+    "Read `client/src/pages/Storefront.tsx` and `client/src/filters.ts`. The search, the order and the page come from `useFilters()`, which reads and writes the URL. The category is the only one that does not."
+  ]
+}

@@ -42,7 +42,64 @@
       "subject": "Boas-vindas ao projeto CornerShop!",
       "body": "Oi, que bom ter você com a gente!\n\nEu sou a Rafaela, gerente de engenharia. Você vai entrar no **CornerShop**, o site que estamos construindo para o **Juniper Street Market**, uma mercearia de bairro. A Marta, a dona, atualiza o site ela mesma toda manhã, e os fregueses consultam antes de sair de casa, então o que quebra aqui é percebido no mesmo dia.\n\nComo a gente trabalha:\n\n- Seus tickets aparecem no **Quadro**. Um de cada vez: arraste para **Em andamento** quando começar e para **Em QA** quando achar que terminou. Alguns tickets são bugs para consertar; outros pedem que você construa algo que falta.\n- O código fica no seu container de workspace. **Abrir no VS Code** conecta o seu editor a ele, com Node, terminal e depurador já configurados. Rode `npm run dev` no terminal do VS Code e use **Abrir app no navegador** para testar a loja.\n- Este projeto tem um servidor de banco de dados de verdade: um **PostgreSQL** que roda ao lado do seu workspace. O Dashboard mostra se ele está pronto. Para olhar os dados, rode `psql \"$DATABASE_URL\"` no terminal do VS Code, e `npm run db:reset` devolve a loja de exemplo sempre que você quiser recomeçar do zero.\n- O QA roda primeiro os testes do projeto e depois verifica o próprio ticket. Se algo falhar, o card volta com observações.\n- Travou? Mande uma mensagem para a **Priya** pelo ticket. Ela vai te indicar o caminho, uma dica de cada vez.\n\nQuando quiser começar, clique em **Pegar próxima tarefa**. Escolhi uma boa primeira tarefa para você.\n\nRafaela"
     },
-    "assignments": {},
+    "assignments": {
+      "back-1": {
+        "subject": "Novo ticket: CS-201",
+        "body": "Um erro de digitação no arquivo de preços do fornecedor pôs um produto na loja a -$5.00, e a API respondeu \"criado\" como se nada estivesse errado. A Marta quer que a API recuse preços que não fazem sentido.\n\nVocê não precisa do navegador neste ticket: o `curl` é o jeito mais rápido de ver o que a API aceita.\n\nRafaela"
+      },
+      "back-2": {
+        "subject": "Novo ticket: CS-202",
+        "body": "A Marta cadastra os produtos novos primeiro e põe a categoria depois, e esses produtos não aparecem em lugar nenhum até ela fazer isso. O banco tem; a loja não lista.\n\nEste projeto tem um PostgreSQL de verdade ao lado do seu workspace. O `psql \"$DATABASE_URL\"` no terminal deixa você perguntar direto ao banco, que é o jeito mais rápido de ver quem está certo.\n\nRafaela"
+      },
+      "back-3": {
+        "subject": "Novo ticket: CS-203",
+        "body": "Uma freguesa diz que fica vendo os mesmos produtos ao passar as páginas da loja, e a Lucy confirmou: a página 2 começa com o fim da página 1, e os últimos produtos nunca aparecem. Os testes de paginação da API passam.\n\nLeia com atenção o último comentário da Lucy no ticket. A diferença entre o que ela testou na mão e o que a loja faz é o bug inteiro.\n\nRafaela"
+      },
+      "back-4": {
+        "subject": "Novo ticket: CS-204",
+        "body": "Uma freguesa pediu um pão por cinco centavos, porque era o que a página do produto dizia. O cartão na loja diz $4.50 e o banco diz 450. Em algum ponto entre o banco e a página o preço está sendo alterado.\n\nNão comece pela página que parece errada. Siga o número: banco, API, tela.\n\nRafaela"
+      },
+      "back-5": {
+        "subject": "Novo ticket: CS-205",
+        "body": "A Lucy tenta achar no registro da API a requisição de um freguês que deu erro e encontra centenas de linhas iguais. Ela quer que toda requisição tenha um identificador, visível na resposta e escrito nas linhas de registro dela.\n\nEste é um ticket de construir. O registro de requisições já existe; leia primeiro como ele funciona, porque o identificador precisa ser decidido antes de a linha ser escrita.\n\nRafaela"
+      },
+      "back-6": {
+        "subject": "Novo ticket: CS-206",
+        "body": "A página da loja já tem um seletor **Sort by** e dois campos de preço, e envia os três para a API. A API ignora. A Marta quer que \"o mais barato primeiro\" e \"o que vocês têm por menos de cinco dólares\" funcionem.\n\nEste é um ticket de construir na API. O ticket diz exatamente o que cada parâmetro precisa fazer, inclusive nos casos chatos. Leia como os parâmetros que já existem são tratados antes de acrescentar os novos.\n\nRafaela"
+      },
+      "front-1": {
+        "subject": "Novo ticket: CS-101",
+        "body": "A Marta cadastrou um pão novo com um nome bem longo, e o cartão dele na página da loja desmontou: o nome atravessa o cartão e o preço sumiu.\n\nÉ um ticket pequeno, e um bom jeito de conhecer a vitrine. Reproduza primeiro e inspecione o cartão no DevTools do navegador.\n\nRafaela"
+      },
+      "front-2": {
+        "subject": "Novo ticket: CS-102",
+        "body": "A Lucy tem fregueses dizendo que a loja não cabe no celular: uma coluna só, cortada à direita, e a página desliza para os lados. A maioria abre a loja no celular, então este dói.\n\nUse o modo de dispositivo do DevTools do navegador para reproduzir; não precisa de um celular.\n\nRafaela"
+      },
+      "front-3": {
+        "subject": "Novo ticket: CS-103",
+        "body": "Uma freguesa abriu os detalhes de um produto, ordenou a lista por preço, e os detalhes abertos apareceram embaixo de outro produto. A Lucy reproduz toda vez.\n\nA lista em si fica na ordem certa, então olhe o que fica parado quando deveria se mover.\n\nRafaela"
+      },
+      "front-4": {
+        "subject": "Novo ticket: CS-104",
+        "body": "A Lucy manda para os fregueses links de uma prateleira da loja, e o link abre a loja inteira. O filtro de categoria também some ao recarregar, e a busca não.\n\nCompare como os dois filtros se comportam antes de abrir o código; a diferença mostra onde olhar.\n\nRafaela"
+      },
+      "front-5": {
+        "subject": "Novo ticket: CS-105",
+        "body": "O Dev mantém o estoque em dia no balcão só com o teclado, e o **−** e o **+** do painel não são alcançados com Tab. Uma colega dele, que usa leitor de tela, também não consegue nada com eles.\n\nDeixe o mouse de lado neste ticket e teste o painel do jeito que o Dev usa.\n\nRafaela"
+      },
+      "front-6": {
+        "subject": "Novo ticket: CS-106",
+        "body": "A Marta cadastrou o mesmo produto três vezes, porque depois de **Product created** ele não estava na lista. Foi salvo todas as vezes; a lista só acompanhou depois de recarregar.\n\nEditar e remover não têm o problema, o que é uma boa pista. Deixe a aba Network aberta enquanto reproduz.\n\nRafaela"
+      },
+      "front-7": {
+        "subject": "Novo ticket: CS-107",
+        "body": "Este não é um bug: é um trabalho que ficou pela metade. A loja tem tema escuro, e o cabeçalho e os cartões de produto nunca foram levados para ele, então à noite os fregueses veem cartões brancos numa página escura.\n\nOs tokens de cor já existem e o resto do app usa. Leia como antes de começar.\n\nRafaela"
+      },
+      "front-8": {
+        "subject": "Novo ticket: CS-108",
+        "body": "A Marta quer que os fregueses possam olhar um produto direito: fotos, descrição, se tem no estoque. Os cartões da loja já apontam para uma página de produto, mas a página nunca foi construída, então o link cai em \"Page not found\".\n\nEste é um ticket de construir: a API e o gancho de dados estão prontos, e o ticket lista exatamente o que a página precisa mostrar. Comece pequeno, pela rota.\n\nRafaela"
+      }
+    },
     "completion": {
       "subject": "CornerShop: projeto concluído!",
       "body": "Você concluiu toda a trilha de {{track}} do CornerShop, então este projeto está feito do seu lado. A Marta disse que o site da loja nunca foi tão confiável, e o Dev e a Lucy também mandaram um obrigado.\n\nVocê pode continuar com as outras trilhas do CornerShop quando quiser. Novos projetos também estão a caminho.\n\nObrigada pelo esforço.\n\nRafaela"

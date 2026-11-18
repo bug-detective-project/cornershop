@@ -1,0 +1,68 @@
+diff --git a/server/src/pagination.test.ts b/server/src/pagination.test.ts
+new file mode 100644
+index 0000000..dce0bb9
+--- /dev/null
++++ b/server/src/pagination.test.ts
+@@ -0,0 +1,41 @@
++import { describe, expect, it } from 'vitest';
++import { useApi } from './test/app.ts';
++import type { ProductPage } from './types.ts';
++
++const { api } = useApi();
++
++const list = async (query: Record<string, string | number>): Promise<ProductPage> =>
++  (await api().get('/api/products').query(query)).body;
++
++describe('pages of a size other than the default', () => {
++  it.each([12, 5, 25, 50])('with %i per page, every product comes exactly once', async (pageSize) => {
++    const { total } = await list({ pageSize });
++    const seen: number[] = [];
++    for (let page = 1; page <= Math.ceil(total / pageSize); page += 1) {
++      const result = await list({ pageSize, page });
++      expect(result.pageSize).toBe(pageSize);
++      expect(result.total).toBe(total);
++      seen.push(...result.items.map((item) => item.id));
++    }
++
++    expect(seen).toHaveLength(total);
++    expect(new Set(seen).size).toBe(total);
++  });
++
++  it('page 2 of twelve starts where page 1 ended', async () => {
++    const all = (await list({ pageSize: 24 })).items.map((item) => item.name);
++    const first = (await list({ pageSize: 12 })).items.map((item) => item.name);
++    const second = (await list({ pageSize: 12, page: 2 })).items.map((item) => item.name);
++
++    expect(first).toEqual(all.slice(0, 12));
++    expect(second).toEqual(all.slice(12, 24));
++  });
++
++  it('pages inside a category filter too', async () => {
++    const first = await list({ category: 'bakery', pageSize: 3 });
++    const third = await list({ category: 'bakery', pageSize: 3, page: 3 });
++
++    expect(first.items).toHaveLength(3);
++    expect(third.items).toHaveLength(1);
++  });
++});
+diff --git a/server/src/repository.ts b/server/src/repository.ts
+index 98b5d62..f39ea32 100644
+--- a/server/src/repository.ts
++++ b/server/src/repository.ts
+@@ -2,7 +2,6 @@ import { and, asc, count, desc, eq, gte, ilike, inArray, lte, sql } from 'drizzl
+ import type { SQL } from 'drizzle-orm';
+ import type { Db } from './db.ts';
+ import { categories, productImages, products } from './schema.ts';
+-import { DEFAULT_PAGE_SIZE } from './types.ts';
+ import type { Category, Product, ProductPage, Sort } from './types.ts';
+ import type { ListQuery, ProductInput } from './validation.ts';
+ 
+@@ -106,7 +105,7 @@ export async function listProducts(db: Db, query: ListQuery): Promise<ProductPag
+     .where(where)
+     .orderBy(...ORDERS[query.sort])
+     .limit(pageSize)
+-    .offset((page - 1) * DEFAULT_PAGE_SIZE);
++    .offset((page - 1) * pageSize);
+ 
+   const images = await imagesOf(
+     db,

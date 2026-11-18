@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Two files do the work: `server/src/validation.ts` turns the query string into a checked object, and `server/src/repository.ts` turns that object into a query. Read how `page`, `pageSize`, `category` and `q` travel through both before adding anything. Try `curl \"http://localhost:3001/api/products?sort=price_asc&pageSize=3\"` after each step.",
+    "Start with the validation: add `sort`, `minPrice` and `maxPrice` to what `parseListQuery` returns, each with its rule and its entry in `fields` when it is wrong. A list of allowed values for `sort` gives you both the check and the type. `wholeNumber` in the same file already reads \"a whole number of 0 or more\" from a query value.",
+    "Then the query. The price range is two more conditions pushed to `filters` (`gte` and `lte` from `drizzle-orm`), so the count and the page both get them. For the order, keep a small table from each `sort` value to its `orderBy` columns, each ending with `asc(products.id)` as the tie-breaker, and use it in place of the fixed order."
+  ]
+}

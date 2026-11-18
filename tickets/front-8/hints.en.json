@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Start with the smallest thing that works: a route `/products/:id` in `App.tsx` that shows a component with the id from `useParams()`. Click a product name in the shop and check that you land on it. Then load the product with `useProduct(id)` and show its name.",
+    "Handle the three states of the query in this order: `isPending` (loading), `isError` (a 404 becomes the `NotFound` page with the title \"Product not found\"), and then the data. For the stock, the page only needs to know whether `stock` is above zero.",
+    "The gallery is a component of its own with one piece of state: the index of the selected photo, starting at 0. The main `<img>` shows `images[selected]`; each thumbnail is a `<button aria-label={`Show photo ${index + 1}`}>` that sets the index. With an empty `images`, return the \"No photos yet\" box before anything else."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Open the Network tab of the DevTools and create a product. Look at the requests: the `POST` and its status, and what comes after it. Then edit a product and compare the requests.",
+    "The lists on screen are not read from the server on every render: TanStack Query keeps a copy of each answer in a cache and reuses it for a minute. Writing to the server does not change those copies. After a change, someone has to tell the cache which copies are out of date.",
+    "Read the three mutations at the end of `client/src/api/products.ts`. Two of them do something in `onSuccess` that the third does not."
+  ]
+}

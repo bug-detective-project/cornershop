@@ -1,0 +1,15 @@
+{
+  "type": "build",
+  "skills": {
+    "en": [
+      "Routes and endpoints",
+      "Search, filters and pagination",
+      "Everyday data structures and algorithms"
+    ],
+    "pt": [
+      "Criação de rotas e endpoints",
+      "Busca, filtros e paginação",
+      "Estruturas de dados e algoritmos do dia a dia"
+    ]
+  }
+}

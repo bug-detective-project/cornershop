@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Comece pela menor coisa que funciona: uma rota `/products/:id` no `App.tsx` que mostra um componente com o id vindo de `useParams()`. Clique no nome de um produto na loja e confira que você chega nele. Depois carregue o produto com `useProduct(id)` e mostre o nome.",
+    "Trate os três estados da consulta nesta ordem: `isPending` (carregando), `isError` (um 404 vira a página `NotFound` com o título \"Product not found\") e depois os dados. Para o estoque, a página só precisa saber se `stock` é maior que zero.",
+    "A galeria é um componente próprio com um único estado: o índice da foto selecionada, começando em 0. O `<img>` principal mostra `images[selected]`; cada miniatura é um `<button aria-label={`Show photo ${index + 1}`}>` que muda o índice. Com `images` vazio, devolva a caixa \"No photos yet\" antes de qualquer outra coisa."
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "type": "fix",
+  "skills": {
+    "en": [
+      "Tracing data flow",
+      "Reading errors and debugging"
+    ],
+    "pt": [
+      "Rastrear o fluxo de dados",
+      "Ler erros e depurar"
+    ]
+  }
+}

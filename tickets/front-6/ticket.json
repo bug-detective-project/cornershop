@@ -1,0 +1,13 @@
+{
+  "type": "fix",
+  "skills": {
+    "en": [
+      "Working with APIs",
+      "Using libraries correctly"
+    ],
+    "pt": [
+      "Consumo de API",
+      "Usar bibliotecas corretamente"
+    ]
+  }
+}

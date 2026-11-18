@@ -1,0 +1,142 @@
+diff --git a/server/src/app.ts b/server/src/app.ts
+index 30ca40d..8aa27e7 100644
+--- a/server/src/app.ts
++++ b/server/src/app.ts
+@@ -1,7 +1,7 @@
+ import express from 'express';
+ import type { ErrorRequestHandler, Express, RequestHandler } from 'express';
+ import type { Db } from './db.ts';
+-import { requestLog } from './log.ts';
++import { requestIdOf, requestLog } from './log.ts';
+ import type { Log } from './log.ts';
+ import { categoriesRouter } from './routes/categories.ts';
+ import { productsRouter } from './routes/products.ts';
+@@ -53,7 +53,8 @@ export function handleErrors(log: Log): ErrorRequestHandler {
+       res.status(400).json({ error: 'Request body must be valid JSON' });
+       return;
+     }
+-    log(JSON.stringify({ level: 'error', message: error instanceof Error ? error.message : String(error) }));
+-    res.status(500).json({ error: 'Internal server error' });
++    const requestId = requestIdOf(res);
++    log(JSON.stringify({ requestId, level: 'error', message: error instanceof Error ? error.message : String(error) }));
++    res.status(500).json({ error: 'Internal server error', requestId });
+   };
+ }
+diff --git a/server/src/log.ts b/server/src/log.ts
+index 1b52c9a..72554be 100644
+--- a/server/src/log.ts
++++ b/server/src/log.ts
+@@ -1,15 +1,32 @@
+-import type { RequestHandler } from 'express';
++import { randomUUID } from 'node:crypto';
++import type { RequestHandler, Response } from 'express';
+ 
+ /** Where the log lines go: the console in the app, an array in the tests. */
+ export type Log = (line: string) => void;
+ 
+-/** One JSON line per request, written when the answer is sent. */
++/** An id a caller may send in X-Request-Id: letters, digits and dashes, 8 to 64 characters. */
++const REQUEST_ID = /^[A-Za-z0-9-]{8,64}$/;
++
++/** The id of the request an answer belongs to. */
++export const requestIdOf = (res: Response): string => res.locals.requestId as string;
++
++/**
++ * One JSON line per request, written when the answer is sent. Every request gets an id (the
++ * caller's own, when it sent a plain one): it goes back in the X-Request-Id header and into every
++ * line the request logs, so one request can be followed through the log.
++ */
+ export function requestLog(log: Log): RequestHandler {
+   return (req, res, next) => {
++    const sent = req.get('x-request-id');
++    const requestId = sent !== undefined && REQUEST_ID.test(sent) ? sent : randomUUID();
++    res.locals.requestId = requestId;
++    res.setHeader('X-Request-Id', requestId);
++
+     const started = performance.now();
+     res.on('finish', () => {
+       log(
+         JSON.stringify({
++          requestId,
+           method: req.method,
+           path: req.originalUrl.split('?')[0],
+           status: res.statusCode,
+diff --git a/server/src/request-id.test.ts b/server/src/request-id.test.ts
+new file mode 100644
+index 0000000..0b475f0
+--- /dev/null
++++ b/server/src/request-id.test.ts
+@@ -0,0 +1,73 @@
++import express from 'express';
++import request from 'supertest';
++import { beforeEach, describe, expect, it } from 'vitest';
++import { handleErrors } from './app.ts';
++import { requestLog } from './log.ts';
++import { useApi } from './test/app.ts';
++
++const { api, lines } = useApi();
++
++const entries = () => lines.map((line) => JSON.parse(line) as Record<string, unknown>);
++const ID = /^[A-Za-z0-9-]{8,64}$/;
++
++describe('the request id', () => {
++  beforeEach(() => {
++    lines.length = 0;
++  });
++
++  it('comes back in the X-Request-Id header of every answer', async () => {
++    for (const path of ['/api/categories', '/api/products/999999', '/api/nothing']) {
++      expect((await api().get(path)).headers['x-request-id']).toMatch(ID);
++    }
++    expect((await api().get('/api/categories').set('Host', 'example.invalid')).headers['x-request-id']).toMatch(ID);
++  });
++
++  it('is different for each request', async () => {
++    const ids = await Promise.all([1, 2, 3].map(async () => (await api().get('/api/categories')).headers['x-request-id']));
++
++    expect(new Set(ids).size).toBe(3);
++  });
++
++  it('is in the log line of its request', async () => {
++    const first = await api().get('/api/categories');
++    const second = await api().get('/api/products');
++
++    expect(entries().map((entry) => [entry.path, entry.requestId])).toEqual([
++      ['/api/categories', first.headers['x-request-id']],
++      ['/api/products', second.headers['x-request-id']],
++    ]);
++  });
++
++  it('is the one the caller sent, when it is a plain id', async () => {
++    const response = await api().get('/api/categories').set('X-Request-Id', 'checkout-7f3a9c21');
++
++    expect(response.headers['x-request-id']).toBe('checkout-7f3a9c21');
++    expect(entries()[0]!.requestId).toBe('checkout-7f3a9c21');
++  });
++
++  it.each(['short', 'has spaces in it', 'x'.repeat(65), 'line\tbreak-12345', '<script>alert(1)</script>'])('is a new one when the caller sent %j', async (sent) => {
++    const response = await api().get('/api/categories').set('X-Request-Id', sent);
++
++    expect(response.headers['x-request-id']).toMatch(ID);
++    expect(response.headers['x-request-id']).not.toBe(sent);
++  });
++
++  it('is in the body of a 500 and in the log line of the error', async () => {
++    const logged: string[] = [];
++    const app = express();
++    app.use(requestLog((line) => logged.push(line)));
++    app.get('/boom', () => {
++      throw new Error('the shelf collapsed');
++    });
++    app.use(handleErrors((line) => logged.push(line)));
++
++    const response = await request(app).get('/boom');
++    const id = response.headers['x-request-id'];
++
++    expect(response.status).toBe(500);
++    expect(response.body).toEqual({ error: 'Internal server error', requestId: id });
++    const parsed = logged.map((line) => JSON.parse(line) as Record<string, unknown>);
++    expect(parsed.find((entry) => entry.level === 'error')).toMatchObject({ requestId: id, message: 'the shelf collapsed' });
++    expect(parsed.find((entry) => entry.status === 500)).toMatchObject({ requestId: id, path: '/boom' });
++  });
++});

@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Follow one value through the whole trip: the database, the answer of the API, the screen. For the Sourdough Loaf, `psql` gives you the first, the Network tab of the DevTools (or `curl`) the second, and the page the third. At which step does 450 stop being 450?",
+    "Two requests bring the same product: the list (`GET /api/products`) and the details (`GET /api/products/<id>`). Compare `priceCents` in the two answers. The screen formats both the same way, so the difference is already in the data it receives.",
+    "In `server/src/repository.ts` two functions turn a database row into what the API answers: one for the list and one for the details. They look the same. One line is not."
+  ]
+}

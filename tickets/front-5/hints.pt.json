@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Deixe o mouse de lado e use só Tab, Enter e Espaço no painel. Depois abra o painel Elements do DevTools e compare um controle de estoque com o botão Edit da mesma linha: qual elemento HTML é cada um?",
+    "Um `<button>` dá quatro coisas de graça: um lugar na ordem do Tab, Enter e Espaço, o papel \"botão\" para leitores de tela e o estado `disabled`. Um `<span>` com `onClick` não dá nenhuma; ele só responde ao mouse.",
+    "Olhe `client/src/components/StockStepper.tsx`. Os dois controles deveriam ser `<button type=\"button\">`. O texto visível é só \"−\" ou \"+\", então cada um também precisa de um nome que diga o que faz e para qual produto: `aria-label`."
+  ]
+}

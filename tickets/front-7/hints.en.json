@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Switch to the dark theme and compare the header and a card with the filters above the list, in the Elements panel of the DevTools. Look at the classes that set colors on each: what kind of class do the filters use, and what kind do the header and the card use?",
+    "A class such as `bg-white` or `text-slate-900` is one fixed color, the same in every theme. A token such as `bg-surface-raised` or `text-content` is a name: `client/src/styles.css` gives it one value in the light theme and another in the dark theme.",
+    "In `Header.tsx` and `ProductCard.tsx`, replace each fixed color with the token that plays the same part: card and header background `surface-raised`, the placeholder and the current page `surface`, main text `content`, secondary text `muted`, lines `border`."
+  ]
+}

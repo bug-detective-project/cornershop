@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Rode `npm run dev`, chame `curl -i http://localhost:3001/api/categories` e leia os dois lados: os cabeçalhos da resposta e a linha que o servidor imprimiu. Essa linha é escrita em `server/src/log.ts`. Tudo o que você precisa mudar começa ali.",
+    "O middleware roda no começo de toda requisição, antes de qualquer rota. É o momento de decidir o identificador (o de quem chamou, quando é válido, ou um novo), de colocá-lo na resposta com `res.setHeader` e de guardá-lo onde o resto da requisição encontra, como o `res.locals`.",
+    "A linha de registro é escrita depois, no tratador de `finish`, que consegue ler o identificador decidido antes. Para a linha de erro, o `handleErrors` em `server/src/app.ts` precisa do mesmo identificador: leia de onde o middleware guardou. Confira o cabeçalho de quem chamou com uma expressão regular antes de confiar nele: ele vai para o seu registro."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Reproduza sem o painel: envie o `POST` do ticket com `curl -i` e leia a linha de status. Depois envie um produto com `\"stock\": -1` e compare as duas respostas.",
+    "A API tem um lugar só onde lê e confere o corpo de um produto. Cada campo tem uma regra ali. Compare a regra de `stock` com a de `priceCents`: o que exatamente cada uma confere?",
+    "Em `server/src/validation.ts`, o `parseProduct` só confere se `priceCents` é do tipo número. `-500` e `4.5` são números. O arquivo já tem uma função que diz \"um número inteiro, zero ou mais\"."
+  ]
+}

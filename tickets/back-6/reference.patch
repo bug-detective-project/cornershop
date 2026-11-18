@@ -1,0 +1,242 @@
+diff --git a/server/src/price-range-and-sort.test.ts b/server/src/price-range-and-sort.test.ts
+new file mode 100644
+index 0000000..7063de6
+--- /dev/null
++++ b/server/src/price-range-and-sort.test.ts
+@@ -0,0 +1,110 @@
++import { describe, expect, it } from 'vitest';
++import { byName, useApi } from './test/app.ts';
++import type { ProductPage } from './types.ts';
++
++const { api } = useApi();
++
++/** The first fifty products that match: enough for every case here, in one request. */
++const list = async (query: Record<string, string | number>): Promise<ProductPage> => {
++  const response = await api()
++    .get('/api/products')
++    .query({ pageSize: 50, ...query });
++  expect(response.status).toBe(200);
++  return response.body;
++};
++const items = async (query: Record<string, string | number>) => (await list(query)).items;
++const names = async (query: Record<string, string | number>) => (await items(query)).map((item) => item.name);
++
++describe('sorting the list', () => {
++  it('sorts by name when nothing is asked, and with sort=name', async () => {
++    const byDefault = await names({});
++
++    expect(byDefault).toEqual([...byDefault].sort(byName));
++    expect(await names({ sort: 'name' })).toEqual(byDefault);
++  });
++
++  it('sorts by price, cheapest first, and products of the same price by id', async () => {
++    const sorted = await items({ sort: 'price_asc' });
++
++    expect(sorted[0]).toMatchObject({ name: 'Chewing Gum', priceCents: 95 });
++    expect(sorted).toEqual([...sorted].sort((a, b) => a.priceCents - b.priceCents || a.id - b.id));
++    // The sample shop has several products at 450: the tie must have one answer.
++    expect(sorted.filter((item) => item.priceCents === 450).length).toBeGreaterThan(2);
++  });
++
++  it('sorts by price, most expensive first, and products of the same price by id', async () => {
++    const sorted = await items({ sort: 'price_desc' });
++
++    expect(sorted[0]).toMatchObject({ name: 'Gift Hamper with Sparkling Wine', priceCents: 12900 });
++    expect(sorted).toEqual([...sorted].sort((a, b) => b.priceCents - a.priceCents || a.id - b.id));
++  });
++
++  it('sorts by newest first', async () => {
++    const sorted = await items({ sort: 'newest' });
++
++    expect(sorted).toEqual([...sorted].sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt) || a.id - b.id));
++    expect((await names({ sort: 'newest', category: 'bakery' }))[0]).toBe('Baguette');
++  });
++
++  it('sorts the whole list, not one page of it', async () => {
++    const whole = (await items({ sort: 'price_asc' })).map((item) => item.id);
++    const second = await api().get('/api/products').query({ sort: 'price_asc', page: 2 });
++
++    expect(second.body.items.map((item: { id: number }) => item.id)).toEqual(whole.slice(10, 20));
++  });
++
++  it('refuses an unknown order with 400', async () => {
++    const response = await api().get('/api/products').query({ sort: 'cheapest' });
++
++    expect(response.status).toBe(400);
++    expect(Object.keys(response.body.fields)).toEqual(['sort']);
++  });
++});
++
++describe('the price range', () => {
++  it('keeps the products from minPrice to maxPrice, both included, in cents', async () => {
++    const found = await items({ minPrice: 450, maxPrice: 499 });
++
++    expect(found.every((item) => item.priceCents >= 450 && item.priceCents <= 499)).toBe(true);
++    expect(found.map((item) => item.name)).toEqual(
++      expect.arrayContaining(['Sourdough Loaf', 'Honeycrisp Apples (4)', 'Sea Salt Flakes', 'Fresh Mozzarella', 'Ginger Kombucha', 'Orange Juice', 'Arborio Rice']),
++    );
++    expect(await names({ category: 'bakery', minPrice: 450, maxPrice: 450 })).toEqual(['Sourdough Loaf']);
++  });
++
++  it('takes only a minimum or only a maximum', async () => {
++    expect(await names({ category: 'drinks', minPrice: 1000 })).toEqual(['Gift Hamper with Sparkling Wine']);
++    expect(await names({ category: 'snacks', maxPrice: 229 })).toEqual(['Chewing Gum', 'Sea Salt Crisps']);
++  });
++
++  it('counts only the products in the range in the total', async () => {
++    const whole = await list({ minPrice: 1000 });
++    const two = await list({ minPrice: 1000, pageSize: 2 });
++
++    expect(whole.total).toBe(whole.items.length);
++    expect(two.total).toBe(whole.total);
++    expect(two.items).toHaveLength(2);
++  });
++
++  it('works together with the category, the search and the order', async () => {
++    expect(await names({ category: 'bakery', minPrice: 300, maxPrice: 600, sort: 'price_desc' })).toEqual([
++      'Seeded Rye Bread',
++      'Sourdough Loaf',
++      'Cinnamon Roll',
++      'Baguette',
++    ]);
++    expect(await names({ q: 'bread', maxPrice: 100 })).toEqual([]);
++  });
++
++  it.each([
++    [{ minPrice: -1 }, 'minPrice'],
++    [{ minPrice: 'cheap' }, 'minPrice'],
++    [{ maxPrice: 4.5 }, 'maxPrice'],
++    [{ minPrice: 500, maxPrice: 100 }, 'maxPrice'],
++  ])('refuses %j with 400', async (query, field) => {
++    const response = await api().get('/api/products').query(query);
++
++    expect(response.status).toBe(400);
++    expect(Object.keys(response.body.fields)).toEqual([field]);
++  });
++});
+diff --git a/server/src/repository.ts b/server/src/repository.ts
+index 23896be..f39ea32 100644
+--- a/server/src/repository.ts
++++ b/server/src/repository.ts
+@@ -1,8 +1,8 @@
+-import { and, asc, count, eq, ilike, inArray, sql } from 'drizzle-orm';
++import { and, asc, count, desc, eq, gte, ilike, inArray, lte, sql } from 'drizzle-orm';
+ import type { SQL } from 'drizzle-orm';
+ import type { Db } from './db.ts';
+ import { categories, productImages, products } from './schema.ts';
+-import type { Category, Product, ProductPage } from './types.ts';
++import type { Category, Product, ProductPage, Sort } from './types.ts';
+ import type { ListQuery, ProductInput } from './validation.ts';
+ 
+ type ProductRow = typeof products.$inferSelect;
+@@ -64,6 +64,13 @@ async function imagesOf(db: Db, ids: number[]): Promise<Map<number, string[]>> {
+ /** Letters in lower case, then plain character order: the same on every machine. */
+ const byName = sql`lower(${products.name}) collate "C"`;
+ 
++/** Products that tie in the chosen order always come by id, so a page never depends on luck. */
++const ORDERS: Record<Sort, SQL[]> = {
++  name: [asc(byName), asc(products.id)],
++  price_asc: [asc(products.priceCents), asc(products.id)],
++  price_desc: [desc(products.priceCents), asc(products.id)],
++  newest: [desc(products.createdAt), asc(products.id)],
++};
+ 
+ /** In a LIKE pattern, % and _ mean "anything": what the shopper typed is plain text. */
+ const escapeLike = (text: string): string => text.replace(/[\\%_]/g, (character) => `\\${character}`);
+@@ -77,6 +84,12 @@ export async function listProducts(db: Db, query: ListQuery): Promise<ProductPag
+   if (query.q) {
+     filters.push(ilike(products.name, `%${escapeLike(query.q)}%`));
+   }
++  if (query.minPrice !== undefined) {
++    filters.push(gte(products.priceCents, query.minPrice));
++  }
++  if (query.maxPrice !== undefined) {
++    filters.push(lte(products.priceCents, query.maxPrice));
++  }
+   const where = and(...filters);
+ 
+   const [counted] = await db
+@@ -90,7 +103,7 @@ export async function listProducts(db: Db, query: ListQuery): Promise<ProductPag
+     .from(products)
+     .leftJoin(categories, eq(products.categoryId, categories.id))
+     .where(where)
+-    .orderBy(asc(byName), asc(products.id))
++    .orderBy(...ORDERS[query.sort])
+     .limit(pageSize)
+     .offset((page - 1) * pageSize);
+ 
+diff --git a/server/src/types.ts b/server/src/types.ts
+index b2a19e5..89ff31c 100644
+--- a/server/src/types.ts
++++ b/server/src/types.ts
+@@ -26,5 +26,8 @@ export interface ProductPage {
+   pageSize: number;
+ }
+ 
++export const SORTS = ['name', 'price_asc', 'price_desc', 'newest'] as const;
++export type Sort = (typeof SORTS)[number];
++
+ export const DEFAULT_PAGE_SIZE = 10;
+ export const MAX_PAGE_SIZE = 50;
+diff --git a/server/src/validation.ts b/server/src/validation.ts
+index edf2974..3e5cb43 100644
+--- a/server/src/validation.ts
++++ b/server/src/validation.ts
+@@ -1,4 +1,5 @@
+-import { DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE } from './types.ts';
++import { DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, SORTS } from './types.ts';
++import type { Sort } from './types.ts';
+ 
+ /** A request the client got wrong: answered with 400 and the message of each bad field. */
+ export class ValidationError extends Error {
+@@ -13,8 +14,11 @@ export class ValidationError extends Error {
+ export interface ListQuery {
+   page: number;
+   pageSize: number;
++  sort: Sort;
+   category?: string;
+   q?: string;
++  minPrice?: number;
++  maxPrice?: number;
+ }
+ 
+ const text = (value: unknown): string | undefined => (typeof value === 'string' && value.trim() !== '' ? value.trim() : undefined);
+@@ -44,10 +48,37 @@ export function parseListQuery(query: Record<string, unknown>): ListQuery {
+     }
+   }
+ 
++  let sort: Sort = 'name';
++  if (query.sort !== undefined) {
++    if (!(SORTS as readonly unknown[]).includes(query.sort)) {
++      fields.sort = `sort must be one of: ${SORTS.join(', ')}`;
++    } else {
++      sort = query.sort as Sort;
++    }
++  }
++
++  let minPrice: number | undefined;
++  if (query.minPrice !== undefined) {
++    minPrice = wholeNumber(query.minPrice);
++    if (minPrice === undefined) {
++      fields.minPrice = 'minPrice must be a whole number of cents, 0 or more';
++    }
++  }
++
++  let maxPrice: number | undefined;
++  if (query.maxPrice !== undefined) {
++    maxPrice = wholeNumber(query.maxPrice);
++    if (maxPrice === undefined) {
++      fields.maxPrice = 'maxPrice must be a whole number of cents, 0 or more';
++    } else if (minPrice !== undefined && maxPrice < minPrice) {
++      fields.maxPrice = 'maxPrice must not be below minPrice';
++    }
++  }
++
+   if (Object.keys(fields).length > 0) {
+     throw new ValidationError('Invalid query', fields);
+   }
+-  return { page, pageSize, category: text(query.category), q: text(query.q) };
++  return { page, pageSize, sort, category: text(query.category), q: text(query.q), minPrice, maxPrice };
+ }
+ 
+ export interface ProductInput {

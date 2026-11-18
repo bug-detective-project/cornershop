@@ -1,0 +1,54 @@
+diff --git a/client/src/components/ProductCard.layout.test.tsx b/client/src/components/ProductCard.layout.test.tsx
+new file mode 100644
+index 0000000..26ff355
+--- /dev/null
++++ b/client/src/components/ProductCard.layout.test.tsx
+@@ -0,0 +1,29 @@
++import { render, screen } from '@testing-library/react';
++import { MemoryRouter } from 'react-router';
++import { describe, expect, it } from 'vitest';
++import { createTestProducts } from '../test/mockApi.ts';
++import { ProductCard } from './ProductCard.tsx';
++
++// The test environment has no layout engine, so this checks the classes that make the layout
++// hold: a long name must be able to shrink, and the price must not.
++describe('the name and the price of a card', () => {
++  it('share one line where the name gives way and the price keeps its width', () => {
++    const product = { ...createTestProducts()[0]!, name: 'Grandma Lucia\'s Slow-Fermented Whole Wheat Sourdough Country Loaf (Large)' };
++    render(
++      <MemoryRouter>
++        <ProductCard product={product} />
++      </MemoryRouter>,
++    );
++
++    const name = screen.getByTestId('product-name');
++    const price = screen.getByTestId('product-price');
++    expect(name.parentElement).toBe(price.parentElement);
++    expect(name.parentElement).toHaveClass('flex');
++    // The link cuts the text with an ellipsis; that only works when the heading around it may shrink.
++    expect(name.querySelector('a')).toHaveClass('truncate');
++    expect(name).toHaveClass('min-w-0');
++    expect(price).toHaveClass('shrink-0');
++    // The whole name is still there for a pointer and for a screen reader.
++    expect(name).toHaveAttribute('title', product.name);
++  });
++});
+diff --git a/client/src/components/ProductCard.tsx b/client/src/components/ProductCard.tsx
+index a503722..fcb9f93 100644
+--- a/client/src/components/ProductCard.tsx
++++ b/client/src/components/ProductCard.tsx
+@@ -15,12 +15,12 @@ export function ProductCard({ product }: { product: Product }) {
+         <div className="flex aspect-[4/3] w-full items-center justify-center bg-surface text-muted">No photo</div>
+       )}
+       <div className="flex items-baseline gap-3 px-4 pt-4">
+-        <h3 data-testid="product-name" title={product.name} className="flex-1 font-semibold">
++        <h3 data-testid="product-name" title={product.name} className="min-w-0 flex-1 font-semibold">
+           <Link to={`/products/${product.id}`} className="block truncate">
+             {product.name}
+           </Link>
+         </h3>
+-        <p data-testid="product-price" className="font-semibold">
++        <p data-testid="product-price" className="shrink-0 font-semibold">
+           {formatPrice(product.priceCents)}
+         </p>
+       </div>
