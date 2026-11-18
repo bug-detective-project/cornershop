@@ -1,0 +1,55 @@
+{
+  "client": {
+    "name": "Juniper Street Market",
+    "about": "O Juniper Street Market é uma mercearia de bairro, com uma loja só e fregueses que se conhecem pelo nome. O CornerShop é o primeiro site dela: as prateleiras na internet, para as pessoas verem o que tem antes de ir até lá, e um painel pequeno onde a dona mantém os produtos e o estoque em dia.",
+    "contacts": "Marta Okafor (dona), Dev Patel (atendente da loja) e Lucy Tran (atendimento ao cliente) relatam os tickets.",
+    "reporters": [
+      {
+        "name": "Marta Okafor",
+        "role": "Dona"
+      },
+      {
+        "name": "Dev Patel",
+        "role": "Atendente da loja"
+      },
+      {
+        "name": "Lucy Tran",
+        "role": "Atendimento ao cliente"
+      }
+    ]
+  },
+  "project": {
+    "name": "CornerShop",
+    "about": "A vitrine de uma loja de bairro: prateleiras por categoria, busca, uma página por produto e um painel onde a dona cadastra produtos e controla o estoque. Os dados ficam em um banco PostgreSQL que roda ao lado do seu workspace.",
+    "stack": "React, Vite, TanStack Query e Tailwind; Node.js e Express; PostgreSQL com Drizzle",
+    "skills": [
+      "Layout e CSS",
+      "Responsividade",
+      "Renderização e listas",
+      "Criação de rotas e navegação",
+      "Acessibilidade",
+      "Consumo de API",
+      "Usar bibliotecas corretamente",
+      "Temas e tokens de design",
+      "Criação de componentes",
+      "Desenho de API e HTTP",
+      "Banco de dados e consultas",
+      "Busca, filtros e paginação"
+    ]
+  },
+  "messages": {
+    "welcome": {
+      "subject": "Boas-vindas ao projeto CornerShop!",
+      "body": "Oi, que bom ter você com a gente!\n\nEu sou a Rafaela, gerente de engenharia. Você vai entrar no **CornerShop**, o site que estamos construindo para o **Juniper Street Market**, uma mercearia de bairro. A Marta, a dona, atualiza o site ela mesma toda manhã, e os fregueses consultam antes de sair de casa, então o que quebra aqui é percebido no mesmo dia.\n\nComo a gente trabalha:\n\n- Seus tickets aparecem no **Quadro**. Um de cada vez: arraste para **Em andamento** quando começar e para **Em QA** quando achar que terminou. Alguns tickets são bugs para consertar; outros pedem que você construa algo que falta.\n- O código fica no seu container de workspace. **Abrir no VS Code** conecta o seu editor a ele, com Node, terminal e depurador já configurados. Rode `npm run dev` no terminal do VS Code e use **Abrir app no navegador** para testar a loja.\n- Este projeto tem um servidor de banco de dados de verdade: um **PostgreSQL** que roda ao lado do seu workspace. O Dashboard mostra se ele está pronto. Para olhar os dados, rode `psql \"$DATABASE_URL\"` no terminal do VS Code, e `npm run db:reset` devolve a loja de exemplo sempre que você quiser recomeçar do zero.\n- O QA roda primeiro os testes do projeto e depois verifica o próprio ticket. Se algo falhar, o card volta com observações.\n- Travou? Mande uma mensagem para a **Priya** pelo ticket. Ela vai te indicar o caminho, uma dica de cada vez.\n\nQuando quiser começar, clique em **Pegar próxima tarefa**. Escolhi uma boa primeira tarefa para você.\n\nRafaela"
+    },
+    "assignments": {},
+    "completion": {
+      "subject": "CornerShop: projeto concluído!",
+      "body": "Você concluiu toda a trilha de {{track}} do CornerShop, então este projeto está feito do seu lado. A Marta disse que o site da loja nunca foi tão confiável, e o Dev e a Lucy também mandaram um obrigado.\n\nVocê pode continuar com as outras trilhas do CornerShop quando quiser. Novos projetos também estão a caminho.\n\nObrigada pelo esforço.\n\nRafaela"
+    },
+    "trackCompletion": {
+      "subject": "A trilha de {{track}} está concluída!",
+      "body": "Você fechou todos os tickets de {{track}} do CornerShop. A Marta percebeu: menos ligações perguntando se tem tal coisa no estoque.\n\nObrigada pelo esforço.\n\nRafaela"
+    }
+  }
+}

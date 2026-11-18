@@ -1,0 +1,55 @@
+{
+  "client": {
+    "name": "Juniper Street Market",
+    "about": "Juniper Street Market is a neighborhood grocery with one shop and regulars who know each other by name. CornerShop is its first website: the shelves online, so people can see what is in before they walk over, and a small panel where the owner keeps products and stock up to date.",
+    "contacts": "Marta Okafor (owner), Dev Patel (shop assistant) and Lucy Tran (customer care) report the tickets.",
+    "reporters": [
+      {
+        "name": "Marta Okafor",
+        "role": "Owner"
+      },
+      {
+        "name": "Dev Patel",
+        "role": "Shop assistant"
+      },
+      {
+        "name": "Lucy Tran",
+        "role": "Customer care"
+      }
+    ]
+  },
+  "project": {
+    "name": "CornerShop",
+    "about": "The storefront of a neighborhood shop: shelves by category, a search, a page per product and a panel where the owner adds products and keeps the stock. Its data lives in a PostgreSQL database that runs next to your workspace.",
+    "stack": "React, Vite, TanStack Query and Tailwind; Node.js and Express; PostgreSQL with Drizzle",
+    "skills": [
+      "Layout and CSS",
+      "Responsive design",
+      "Rendering and lists",
+      "Routes and navigation",
+      "Accessibility",
+      "Working with APIs",
+      "Using libraries correctly",
+      "Themes and design tokens",
+      "Building components",
+      "API design and HTTP",
+      "Databases and queries",
+      "Search, filters and pagination"
+    ]
+  },
+  "messages": {
+    "welcome": {
+      "subject": "Welcome to the CornerShop project!",
+      "body": "Hi, and welcome aboard!\n\nI'm Rafaela, the engineering manager here. You're joining **CornerShop**, the website we're building for **Juniper Street Market**, a neighborhood grocery. Marta, the owner, updates it herself every morning, and her customers check it before they walk over, so what breaks here is noticed the same day.\n\nHere's how we work:\n\n- Your tickets show up on the **Board**. Take one at a time: drag it to **In Progress** when you start, and to **In QA** when you think it's done. Some tickets are bugs to fix; others ask you to build something that is missing.\n- The code lives in your workspace container. **Open in VS Code** attaches your editor to it, with Node, the terminal and the debugger already set up. Run `npm run dev` in the VS Code terminal and use **Open app in browser** to try the shop.\n- This project has a real database server: a **PostgreSQL** that runs next to your workspace. The Dashboard shows whether it is ready. To look inside, run `psql \"$DATABASE_URL\"` in the VS Code terminal, and `npm run db:reset` puts the sample shop back whenever you want a clean start.\n- QA runs the project tests first, then checks the ticket itself. If something fails, the card comes back with notes.\n- Stuck? Message **Priya** from the ticket. She'll point you in the right direction, one hint at a time.\n\nWhen you're ready, click **Get next assignment**. I picked a nice first one for you.\n\nRafaela"
+    },
+    "assignments": {},
+    "completion": {
+      "subject": "CornerShop: project done!",
+      "body": "You completed the whole {{track}} track of CornerShop, so this project is done on your side. Marta says the shop's website has never been this dependable, and Dev and Lucy send their thanks too.\n\nYou can keep going with the other tracks of CornerShop whenever you like. New projects are on their way too.\n\nThanks for the effort.\n\nRafaela"
+    },
+    "trackCompletion": {
+      "subject": "The {{track}} track is done!",
+      "body": "You closed every {{track}} ticket of CornerShop. Marta noticed: fewer calls asking whether something is in stock.\n\nThanks for the effort.\n\nRafaela"
+    }
+  }
+}

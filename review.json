@@ -1,0 +1,11 @@
+{
+  "exclude": [
+    "**/test-results/**",
+    "**/playwright-report/**",
+    "**/.vite/**",
+    "**/*.tsbuildinfo",
+    "server/drizzle/meta/**",
+    "client/public/images/**"
+  ],
+  "includeTests": true
+}
