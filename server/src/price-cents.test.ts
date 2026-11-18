@@ -1,0 +1,40 @@
+import { eq } from 'drizzle-orm';
+import { describe, expect, it } from 'vitest';
+import { products } from './schema.ts';
+import { useApi } from './test/app.ts';
+
+const { api, db } = useApi();
+
+describe('the price of a product, from the database to the API', () => {
+  it('is the same whole number of cents in the list, in the details and in the database', async () => {
+    const { items } = (await api().get('/api/products').query({ pageSize: 50 })).body;
+
+    for (const listed of items.slice(0, 15)) {
+      const details = (await api().get(`/api/products/${listed.id}`)).body;
+      const [stored] = await db().select().from(products).where(eq(products.id, listed.id));
+
+      expect(Number.isInteger(details.priceCents)).toBe(true);
+      expect(details.priceCents).toBe(stored!.priceCents);
+      expect(details.priceCents).toBe(listed.priceCents);
+    }
+  });
+
+  it('is 450 for the Sourdough Loaf', async () => {
+    const [loaf] = (await api().get('/api/products').query({ q: 'sourdough loaf' })).body.items;
+
+    expect(loaf.priceCents).toBe(450);
+    expect((await api().get(`/api/products/${loaf.id}`)).body.priceCents).toBe(450);
+  });
+
+  it('comes back as it was sent when a product is created or changed', async () => {
+    const created = await api()
+      .post('/api/products')
+      .send({ name: 'Price Check', description: '', priceCents: 1999, stock: 1, categoryId: null });
+    expect(created.body.priceCents).toBe(1999);
+
+    const changed = await api().patch(`/api/products/${created.body.id}`).send({ priceCents: 2050 });
+    expect(changed.body.priceCents).toBe(2050);
+
+    await api().delete(`/api/products/${created.body.id}`);
+  });
+});
