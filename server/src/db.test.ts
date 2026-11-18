@@ -1,9 +1,9 @@
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { count } from 'drizzle-orm';
+import { count, sql } from 'drizzle-orm';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { databaseUrl } from './config.ts';
-import { resetDatabase } from './db.ts';
+import { isInitialized, resetDatabase } from './db.ts';
 import type { Db } from './db.ts';
 import { categories, productImages, products } from './schema.ts';
 import { TEST_DATABASE, testDatabase } from './test/database.ts';
@@ -52,6 +52,15 @@ describe('the database', () => {
     const loaf = rows.find((row) => row.name === 'Sourdough Loaf')!;
     expect(loaf.priceCents).toBe(450);
     expect(images.filter((image) => image.productId === loaf.id)).toHaveLength(3);
+  });
+
+  it('knows a database that was never reset', async () => {
+    expect(await isInitialized(db)).toBe(true);
+    await db.execute(sql`drop schema public cascade`);
+    await db.execute(sql`create schema public`);
+    expect(await isInitialized(db)).toBe(false);
+    await resetDatabase(db);
+    expect(await isInitialized(db)).toBe(true);
   });
 
   it('runs the tests in a database of their own, never in the one the player works with', async () => {

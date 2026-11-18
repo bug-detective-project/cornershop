@@ -26,3 +26,9 @@ export async function resetDatabase(db: Db): Promise<void> {
   await migrate(db, { migrationsFolder: MIGRATIONS_FOLDER });
   await seedDatabase(db);
 }
+
+/** False for a database that was never reset: it has no tables yet. */
+export async function isInitialized(db: Db): Promise<boolean> {
+  const { rows } = await db.execute(sql`select to_regclass('public.products') as found`);
+  return rows[0]?.found != null;
+}
