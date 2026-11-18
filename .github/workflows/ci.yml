@@ -15,11 +15,10 @@ permissions:
 
 jobs:
   app:
-    # TODO(v1.6.0): pin to the commit of the catalog's v1.6.0 tag, here and in catalog-ref.
-    uses: bug-detective-project/catalog/.github/workflows/app.yml@0000000000000000000000000000000000000000 # v1.6.0
+    uses: bug-detective-project/catalog/.github/workflows/app.yml@8547e2d39458d5aa575696d376b3637fb5a1f9a5 # v1.6.0
     with:
       services-file: services.json
-      catalog-ref: 0000000000000000000000000000000000000000
+      catalog-ref: 8547e2d39458d5aa575696d376b3637fb5a1f9a5
   audit:
     runs-on: ubuntu-latest
     continue-on-error: true
