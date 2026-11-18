@@ -6,7 +6,8 @@ import { createQueryClient } from '../queryClient.ts';
 
 function LocationDisplay() {
   const location = useLocation();
-  return <output data-testid="location">{location.pathname + location.search}</output>;
+  // Not an <output>: that element has the role "status", which the pages use for their own messages.
+  return <span data-testid="location">{location.pathname + location.search}</span>;
 }
 
 /** Renders the whole app at the given URL, with a data cache of its own. */
