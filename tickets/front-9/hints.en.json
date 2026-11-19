@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Before writing a mask of your own, look at how the Min price and Max price fields are built in `client/src/components/Filters.tsx`.",
+    "`PriceInput` and the product form speak the same language: the price as plain text, like \"4.50\". What does the form give the field today, and what does `PriceInput` expect in `value` and `onChange`?",
+    "In `client/src/components/ProductForm.tsx`, swap the plain `<input>` of **Price** for `PriceInput`, give it `values.price`, and update `values.price` with the text it hands back. Keep the `aria-describedby` of the error."
+  ]
+}

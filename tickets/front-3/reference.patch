@@ -1,11 +1,11 @@
 diff --git a/client/src/components/ProductGrid.tsx b/client/src/components/ProductGrid.tsx
-index 75ec3a1..a8520f0 100644
+index 3e4a219..be1039e 100644
 --- a/client/src/components/ProductGrid.tsx
 +++ b/client/src/components/ProductGrid.tsx
 @@ -5,8 +5,8 @@ export function ProductGrid({ products }: { products: Product[] }) {
    return (
      // As many columns as fit. A column is at least 18rem wide, but never wider than the grid.
-     <ul data-testid="product-grid" className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))] gap-4">
+     <ul data-testid="product-grid" className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))] gap-6">
 -      {products.map((product, index) => (
 -        <li key={index}>
 +      {products.map((product) => (
@@ -13,12 +13,12 @@ index 75ec3a1..a8520f0 100644
            <ProductCard product={product} />
          </li>
        ))}
-diff --git a/client/src/pages/Storefront.details.test.tsx b/client/src/pages/Storefront.details.test.tsx
+diff --git a/client/src/pages/Storefront.photos.test.tsx b/client/src/pages/Storefront.photos.test.tsx
 new file mode 100644
-index 0000000..1e10b1a
+index 0000000..57a6c59
 --- /dev/null
-+++ b/client/src/pages/Storefront.details.test.tsx
-@@ -0,0 +1,52 @@
++++ b/client/src/pages/Storefront.photos.test.tsx
+@@ -0,0 +1,46 @@
 +import { screen, waitFor, within } from '@testing-library/react';
 +import userEvent from '@testing-library/user-event';
 +import { describe, expect, it } from 'vitest';
@@ -27,47 +27,41 @@ index 0000000..1e10b1a
 +
 +const cards = () => screen.findAllByTestId('product-card');
 +const nameOf = (card: HTMLElement) => within(card).getByTestId('product-name').textContent;
-+/** The names of the cards whose details are open. */
-+const open = async () => (await cards()).filter((card) => within(card).queryByTestId('product-description')).map(nameOf);
++const cardOf = async (name: string) => (await cards()).find((card) => nameOf(card) === name)!;
 +
-+describe('the details of a card', () => {
-+  it('open and close on the card that was clicked', async () => {
++/** Picks the third photo of the loaf, the only product of the test shop with more than one. */
++async function pickThirdPhotoOfTheLoaf() {
++  const loaf = await cardOf('Sourdough Loaf');
++  await userEvent.click(within(loaf).getByRole('button', { name: 'Photo 3' }));
++  expect(within(loaf).getByRole('img', { name: 'Sourdough Loaf' })).toHaveAttribute('src', '/images/loaf-3.svg');
++}
++
++async function expectTheLoafOnItsThirdPhoto() {
++  const loaf = await cardOf('Sourdough Loaf');
++  expect(within(loaf).getByRole('img', { name: 'Sourdough Loaf' })).toHaveAttribute('src', '/images/loaf-3.svg');
++  expect(within(loaf).getByRole('button', { name: 'Photo 3' })).toHaveAttribute('aria-pressed', 'true');
++}
++
++describe('the photo picked on a card', () => {
++  it('stays with its product when the order of the list changes', async () => {
 +    mockApi();
 +    renderApp('/');
-+    const loaf = (await cards()).find((card) => nameOf(card) === 'Sourdough Loaf')!;
++    await pickThirdPhotoOfTheLoaf();
 +
-+    await userEvent.click(within(loaf).getByRole('button', { name: 'Details' }));
-+    expect(within(loaf).getByTestId('product-description')).toHaveTextContent('About Sourdough Loaf.');
-+    expect(await open()).toEqual(['Sourdough Loaf']);
++    await userEvent.selectOptions(screen.getByLabelText('Sort by'), 'Newest');
 +
-+    await userEvent.click(within(loaf).getByRole('button', { name: 'Details' }));
-+    expect(await open()).toEqual([]);
-+  });
-+
-+  it('stay with their product when the order of the list changes', async () => {
-+    mockApi();
-+    renderApp('/');
-+    const loaf = (await cards()).find((card) => nameOf(card) === 'Sourdough Loaf')!;
-+    await userEvent.click(within(loaf).getByRole('button', { name: 'Details' }));
-+
-+    await userEvent.selectOptions(screen.getByLabelText('Sort by'), 'Price: low to high');
-+    await waitFor(async () => expect(nameOf((await cards())[0]!)).toBe('Whole Milk'));
-+    expect(await open()).toEqual(['Sourdough Loaf']);
-+
-+    await userEvent.selectOptions(screen.getByLabelText('Sort by'), 'Price: high to low');
 +    await waitFor(async () => expect(nameOf((await cards())[0]!)).toBe('Umbrella'));
-+    expect(await open()).toEqual(['Sourdough Loaf']);
++    await expectTheLoafOnItsThirdPhoto();
 +  });
 +
-+  it('stay with their product when the list is filtered', async () => {
++  it('stays with its product when the list is filtered', async () => {
 +    mockApi();
 +    renderApp('/');
-+    const loaf = (await cards()).find((card) => nameOf(card) === 'Sourdough Loaf')!;
-+    await userEvent.click(within(loaf).getByRole('button', { name: 'Details' }));
++    await pickThirdPhotoOfTheLoaf();
 +
 +    await userEvent.type(screen.getByLabelText('Search'), 'o');
 +
 +    await waitFor(async () => expect(await cards()).toHaveLength(3));
-+    expect(await open()).toEqual(['Sourdough Loaf']);
++    await expectTheLoafOnItsThirdPhoto();
 +  });
 +});

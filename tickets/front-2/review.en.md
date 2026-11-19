@@ -22,5 +22,5 @@ Sideways scrolling on a phone almost always comes from one element with a fixed 
 
 ## Watch for next time
 
-- Test every page at 320 px before calling it done: it is the narrowest phone still in use.
+- Test every page at 375 px before calling it done: it is the narrowest phone the shop supports.
 - When a page scrolls sideways, look for the one element whose width does not come from its container.

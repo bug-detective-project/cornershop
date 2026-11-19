@@ -65,6 +65,7 @@ test.describe('Ticket front-6: a new product shows up without a reload', () => {
     await expect(adminRow(page, 'Safety Matches')).toBeVisible();
 
     await page.getByRole('button', { name: 'Delete Safety Matches', exact: true }).click();
+    await page.getByRole('alertdialog', { name: 'Delete product?' }).getByRole('button', { name: 'Delete product', exact: true }).click();
     await expect(adminRow(page, 'Safety Matches')).toHaveCount(0);
     await expectNoReload(page);
   });

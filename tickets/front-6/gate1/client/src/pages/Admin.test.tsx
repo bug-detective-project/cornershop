@@ -1,6 +1,6 @@
 import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { mockApi } from '../test/mockApi.ts';
 import { renderApp } from '../test/renderApp.tsx';
 
@@ -25,7 +25,8 @@ describe('the owner panel', () => {
 
     await userEvent.click(screen.getByRole('button', { name: 'Edit Whole Milk' }));
     expect(screen.getByLabelText('Name')).toHaveValue('Whole Milk');
-    expect(screen.getByLabelText('Price')).toHaveValue('1.89');
+    // As text, with or without a mask: "$1.89" or "1.89".
+    expect(screen.getByLabelText<HTMLInputElement>('Price').value).toContain('1.89');
     expect(screen.getByLabelText('Stock')).toHaveValue(5);
     expect(screen.getByLabelText('Category', { selector: 'select' })).toHaveValue('2');
 
@@ -40,6 +41,19 @@ describe('the owner panel', () => {
     expect(screen.getByLabelText('Name')).toHaveValue('');
   });
 
+  it('takes the owner up to the form, on the name, when a product is picked to edit', async () => {
+    mockApi();
+    renderApp('/admin');
+    await rows();
+    const scroll = vi.spyOn(Element.prototype, 'scrollIntoView');
+
+    await userEvent.click(screen.getByRole('button', { name: 'Edit Whole Milk' }));
+
+    const heading = screen.getByRole('heading', { name: 'Edit product' });
+    expect(scroll.mock.contexts.some((element) => element instanceof Element && element.contains(heading))).toBe(true);
+    expect(screen.getByLabelText('Name')).toHaveFocus();
+  });
+
   it('leaves the edit with Cancel', async () => {
     mockApi();
     renderApp('/admin');
@@ -52,14 +66,65 @@ describe('the owner panel', () => {
     expect(screen.queryByRole('button', { name: 'Cancel' })).not.toBeInTheDocument();
   });
 
-  it('removes a product from the list', async () => {
+  it('asks before removing a product, and removes it once confirmed', async () => {
+    const { requests } = mockApi();
+    renderApp('/admin');
+    await rows();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Delete Umbrella' }));
+    const dialog = screen.getByRole('alertdialog', { name: 'Delete product?' });
+    expect(dialog).toHaveTextContent('Umbrella');
+    // The umbrella has no photo: the question shows only the trash sign.
+    expect(within(dialog).queryByTestId('confirm-delete-photo')).not.toBeInTheDocument();
+    expect(within(dialog).getByRole('button', { name: 'Cancel' })).toHaveFocus();
+    expect(requests.some((request) => request.method === 'DELETE')).toBe(false);
+
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Delete product' }));
+
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
+    await waitFor(async () => expect(await rows()).toEqual(['Aged Cheddar', 'Whole Milk', 'Butter Croissant', 'Sourdough Loaf']));
+  });
+
+  it('shows the first photo of the product in the question', async () => {
+    mockApi();
+    renderApp('/admin');
+    await rows();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Delete Sourdough Loaf' }));
+
+    const dialog = screen.getByRole('alertdialog', { name: 'Delete product?' });
+    expect(within(dialog).getByTestId('confirm-delete-photo')).toHaveAttribute('src', '/images/loaf-1.svg');
+  });
+
+  it.each([
+    ['Cancel', () => userEvent.click(screen.getByRole('button', { name: 'Cancel' }))],
+    ['Escape', () => userEvent.keyboard('{Escape}')],
+  ])('keeps the product when the question is dismissed with %s', async (_way, dismiss) => {
+    const { requests } = mockApi();
+    renderApp('/admin');
+    await rows();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Delete Umbrella' }));
+    await dismiss();
+
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Delete Umbrella' })).toHaveFocus();
+    expect(await rows()).toContain('Umbrella');
+    expect(requests.some((request) => request.method === 'DELETE')).toBe(false);
+  });
+
+  it('keeps Tab inside the question while it is open', async () => {
     mockApi();
     renderApp('/admin');
     await rows();
 
     await userEvent.click(screen.getByRole('button', { name: 'Delete Umbrella' }));
-
-    await waitFor(async () => expect(await rows()).toEqual(['Aged Cheddar', 'Whole Milk', 'Butter Croissant', 'Sourdough Loaf']));
+    await userEvent.tab();
+    expect(screen.getByRole('button', { name: 'Delete product' })).toHaveFocus();
+    await userEvent.tab();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toHaveFocus();
+    await userEvent.tab({ shift: true });
+    expect(screen.getByRole('button', { name: 'Delete product' })).toHaveFocus();
   });
 
   it('refuses a price that is not a price, before calling the API', async () => {

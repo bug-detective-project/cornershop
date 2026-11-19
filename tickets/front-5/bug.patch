@@ -1,21 +1,21 @@
 diff --git a/client/src/components/StockStepper.tsx b/client/src/components/StockStepper.tsx
-index eee64d9..a884bf8 100644
+index 7bb0ef3..caedcfe 100644
 --- a/client/src/components/StockStepper.tsx
 +++ b/client/src/components/StockStepper.tsx
-@@ -8,15 +8,15 @@ export function StockStepper({ product }: { product: Product }) {
+@@ -12,15 +12,15 @@ export function StockStepper({ product }: { product: Product }) {
  
    return (
-     <div className="flex items-center gap-2">
--      <button type="button" className="button px-2 py-0.5" aria-label={`Decrease stock of ${product.name}`} disabled={product.stock === 0} onClick={() => change(-1)}>
-+      <span className="button cursor-pointer px-2 py-0.5" onClick={() => change(-1)}>
+     <div className="inline-flex items-center gap-1 md:rounded-full md:border md:border-border-strong md:bg-surface-raised md:p-1 md:shadow-sm">
+-      <button type="button" className={step} aria-label={`Decrease stock of ${product.name}`} disabled={product.stock === 0} onClick={() => change(-1)}>
++      <span className={`${step} cursor-pointer`} onClick={() => change(-1)}>
          −
 -      </button>
 +      </span>
-       <span data-testid="stock-value" className="min-w-8 text-center tabular-nums">
+       <span data-testid="stock-value" className="font-semibold tabular-nums md:min-w-8 md:text-center">
          {product.stock}
        </span>
--      <button type="button" className="button px-2 py-0.5" aria-label={`Increase stock of ${product.name}`} onClick={() => change(1)}>
-+      <span className="button cursor-pointer px-2 py-0.5" onClick={() => change(1)}>
+-      <button type="button" className={step} aria-label={`Increase stock of ${product.name}`} onClick={() => change(1)}>
++      <span className={`${step} cursor-pointer`} onClick={() => change(1)}>
          +
 -      </button>
 +      </span>

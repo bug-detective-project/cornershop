@@ -1,7 +1,7 @@
 {
   "hints": [
-    "Reproduza e observe com atenção: o texto da descrição é do produto errado, ou o texto certo aparece embaixo do cartão errado? Abra o React DevTools e olhe o estado dos cartões antes e depois de ordenar.",
-    "Se os detalhes estão abertos ou não é estado dentro de cada componente de cartão. Quando uma lista é renderizada de novo em outra ordem, o React precisa decidir qual componente antigo corresponde a qual item novo. O que ele usa para decidir?",
+    "Reproduza e observe com atenção: o cartão do pão mostra a foto de outro produto, ou outro produto mostra uma foto dele mesmo? Abra o React DevTools e olhe o estado dos cartões antes e depois de ordenar.",
+    "Qual foto está à mostra é estado dentro de cada componente de cartão. Quando uma lista é renderizada de novo em outra ordem, o React precisa decidir qual componente antigo corresponde a qual item novo. O que ele usa para decidir?",
     "Olhe a `key` dos itens da lista em `client/src/components/ProductGrid.tsx`. Uma key que é a posição na lista diz ao React \"o primeiro cartão continua sendo o primeiro cartão\", seja qual for o produto que está nele agora."
   ]
 }

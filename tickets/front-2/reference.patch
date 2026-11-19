@@ -30,7 +30,7 @@ index 0000000..b0c4ae3
 +  });
 +});
 diff --git a/client/src/components/ProductGrid.tsx b/client/src/components/ProductGrid.tsx
-index 1cce648..a8520f0 100644
+index 47d5044..be1039e 100644
 --- a/client/src/components/ProductGrid.tsx
 +++ b/client/src/components/ProductGrid.tsx
 @@ -3,8 +3,8 @@ import { ProductCard } from './ProductCard.tsx';
@@ -38,9 +38,9 @@ index 1cce648..a8520f0 100644
  export function ProductGrid({ products }: { products: Product[] }) {
    return (
 -    // As many columns as fit, each at least 360px wide.
--    <ul data-testid="product-grid" className="grid grid-cols-[repeat(auto-fill,minmax(360px,1fr))] gap-4">
+-    <ul data-testid="product-grid" className="grid grid-cols-[repeat(auto-fill,minmax(360px,1fr))] gap-6">
 +    // As many columns as fit. A column is at least 18rem wide, but never wider than the grid.
-+    <ul data-testid="product-grid" className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))] gap-4">
++    <ul data-testid="product-grid" className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))] gap-6">
        {products.map((product) => (
          <li key={product.id}>
            <ProductCard product={product} />

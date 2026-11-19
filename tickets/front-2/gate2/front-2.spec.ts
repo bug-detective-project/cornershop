@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { cards } from '../../../support/app.ts';
 
 test.describe('Ticket front-2: the product grid fits a phone', () => {
-  for (const width of [320, 375, 414]) {
+  for (const width of [375, 414]) {
     test(`at ${width}px, nothing is cut off and the page does not scroll sideways`, async ({ page }) => {
       await page.setViewportSize({ width, height: 800 });
       await page.goto('/');
