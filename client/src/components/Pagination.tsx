@@ -12,15 +12,16 @@ export function Pagination({ page, pageSize, total, onPage }: PaginationProps) {
 
   return (
     <nav aria-label="Pages" className="flex items-center justify-center gap-3">
-      <button type="button" className="button text-sm" disabled={page <= 1} onClick={() => onPage(page - 1)}>
+      {/* The page is in the name for a screen reader; on screen the arrow and the word say enough. */}
+      <button type="button" className="button text-sm" aria-label="Previous page" disabled={page <= 1} onClick={() => onPage(page - 1)}>
         <Icon name="chevronLeft" />
-        Previous page
+        Previous
       </button>
       <span className="rounded-full bg-surface-sunken px-3 py-1.5 text-sm font-semibold text-muted tabular-nums">
         Page {page} of {pages}
       </span>
-      <button type="button" className="button text-sm" disabled={page >= pages} onClick={() => onPage(page + 1)}>
-        Next page
+      <button type="button" className="button text-sm" aria-label="Next page" disabled={page >= pages} onClick={() => onPage(page + 1)}>
+        Next
         <Icon name="chevronRight" />
       </button>
     </nav>
