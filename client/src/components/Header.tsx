@@ -20,7 +20,8 @@ export function Header() {
             <span className="hidden text-xs font-medium text-muted sm:block">Juniper Street Market</span>
           </span>
         </Link>
-        <nav aria-label="Main" className="flex items-center gap-1">
+        {/* On a phone the theme button stays on the line of the name, and the pages go to a line of their own. */}
+        <nav aria-label="Main" className="order-last flex w-full items-center gap-1 sm:order-none sm:w-auto">
           <NavLink to="/" end className={navLink}>
             Shop
           </NavLink>
