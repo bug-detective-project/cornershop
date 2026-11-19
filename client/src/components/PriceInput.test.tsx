@@ -28,6 +28,7 @@ function LateHolder() {
         Price
         <PriceInput value={value} onChange={(next) => setTimeout(() => startTransition(() => setValue(next)), 30)} />
       </label>
+      <output data-testid="held">{value}</output>
       <button type="button" onClick={() => setValue('')}>
         Clear
       </button>
@@ -89,6 +90,8 @@ describe('the price field', () => {
 
     await userEvent.type(field(), '1250');
     expect(field()).toHaveValue('$12.50');
+    // Every late answer is in before the change from outside, so none of them can undo it.
+    await waitFor(() => expect(screen.getByTestId('held')).toHaveTextContent('12.50'));
 
     await userEvent.click(screen.getByRole('button', { name: 'Clear' }));
     await waitFor(() => expect(field()).toHaveValue(''));
