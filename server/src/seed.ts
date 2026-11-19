@@ -178,7 +178,7 @@ export async function seedDatabase(db: Db): Promise<void> {
   const images = inserted.flatMap((product, index) =>
     Array.from({ length: parsed[index]!.photos }, (_, position) => ({
       productId: product.id,
-      path: `/images/${fileName(product.name)}-${position + 1}.svg`,
+      path: `/images/${fileName(product.name)}-${position + 1}.jpg`,
       position,
     })),
   );
