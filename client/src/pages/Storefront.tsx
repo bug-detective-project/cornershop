@@ -23,8 +23,19 @@ export function Storefront() {
   });
 
   return (
-    <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6">
-      <h1 className="text-2xl font-bold">Our shelves</h1>
+    <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="eyebrow">Juniper Street Market</p>
+          <h1 className="mt-1 text-4xl font-extrabold tracking-tight">Our shelves</h1>
+          <p className="mt-2 max-w-xl text-muted">See what is in before you walk over. Prices and stock are updated every morning.</p>
+        </div>
+        {products.data && (
+          <p className="rounded-full bg-surface-sunken px-3 py-1.5 text-sm font-semibold text-muted tabular-nums">
+            {products.data.total === 1 ? '1 product' : `${products.data.total} products`}
+          </p>
+        )}
+      </div>
       <Filters
         q={filters.q}
         category={category}
@@ -40,11 +51,11 @@ export function Storefront() {
       />
       {products.isPending && <p className="text-muted">Loading products…</p>}
       {products.isError && (
-        <p role="alert" className="text-danger">
+        <p role="alert" className="rounded-xl border border-danger/30 bg-danger-soft px-4 py-3 font-medium text-danger">
           The products could not be loaded.
         </p>
       )}
-      {products.data && products.data.items.length === 0 && <p className="text-muted">No products match these filters.</p>}
+      {products.data && products.data.items.length === 0 && <p className="card px-6 py-12 text-center font-medium text-muted">No products match these filters.</p>}
       {products.data && products.data.items.length > 0 && (
         <>
           <ProductGrid products={products.data.items} />

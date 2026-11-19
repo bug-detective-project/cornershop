@@ -5,6 +5,7 @@ import { ApiError } from '../api/http.ts';
 import { useCreateProduct, useUpdateProduct } from '../api/products.ts';
 import type { Product } from '../api/types.ts';
 import { parsePrice } from '../utils/formatPrice.ts';
+import { PriceInput } from './PriceInput.tsx';
 
 interface FormValues {
   name: string;
@@ -24,7 +25,8 @@ const valuesOf = (product: Product): FormValues => ({
   categoryId: product.category ? String(product.category.id) : '',
 });
 
-const label = 'flex flex-col gap-1 text-sm font-medium text-muted';
+const label = 'flex flex-col gap-1.5 text-xs font-bold tracking-wide text-muted uppercase';
+const input = 'field text-base font-normal tracking-normal normal-case';
 
 /**
  * The form of the owner panel: a new product, or the changes to `editing`. The parent gives it a
@@ -66,22 +68,25 @@ export function ProductForm({ editing, onDone }: { editing: Product | null; onDo
 
   const errorOf = (field: string) =>
     errors[field] && (
-      <span className="text-sm font-normal text-danger" id={`error-${field}`}>
+      <span className="text-sm font-medium tracking-normal text-danger normal-case" id={`error-${field}`}>
         {errors[field]}
       </span>
     );
 
   return (
-    <form className="grid gap-3 rounded-xl border border-border bg-surface-raised p-4 md:grid-cols-2" onSubmit={(event) => void submit(event)} noValidate>
-      <h2 className="text-lg font-semibold md:col-span-2">{editing ? 'Edit product' : 'New product'}</h2>
+    <form className="card grid gap-4 p-5 sm:p-6 md:grid-cols-2" onSubmit={(event) => void submit(event)} noValidate>
+      <div className="md:col-span-2">
+        <h2 className="text-xl font-extrabold tracking-tight">{editing ? 'Edit product' : 'New product'}</h2>
+        <p className="text-sm text-muted">{editing ? 'Change what is wrong and save.' : 'It shows on the shelves as soon as it is saved.'}</p>
+      </div>
       <label className={label}>
         Name
-        <input className="field" value={values.name} onChange={set('name')} aria-describedby={errors.name ? 'error-name' : undefined} />
+        <input className={input} value={values.name} onChange={set('name')} aria-describedby={errors.name ? 'error-name' : undefined} />
         {errorOf('name')}
       </label>
       <label className={label}>
         Category
-        <select className="field" value={values.categoryId} onChange={set('categoryId')}>
+        <select className={input} value={values.categoryId} onChange={set('categoryId')}>
           <option value="">No category</option>
           {categories.data?.map((category) => (
             <option key={category.id} value={category.id}>
@@ -93,17 +98,17 @@ export function ProductForm({ editing, onDone }: { editing: Product | null; onDo
       </label>
       <label className={label}>
         Price
-        <input className="field" inputMode="decimal" placeholder="4.50" value={values.price} onChange={set('price')} aria-describedby={errors.priceCents ? 'error-priceCents' : undefined} />
+        <PriceInput className={input} placeholder="$0.00" value={values.price} onChange={(price) => setValues((current) => ({ ...current, price }))} aria-describedby={errors.priceCents ? 'error-priceCents' : undefined} />
         {errorOf('priceCents')}
       </label>
       <label className={label}>
         Stock
-        <input className="field" type="number" min="0" step="1" value={values.stock} onChange={set('stock')} aria-describedby={errors.stock ? 'error-stock' : undefined} />
+        <input className={input} type="number" min="0" step="1" value={values.stock} onChange={set('stock')} aria-describedby={errors.stock ? 'error-stock' : undefined} />
         {errorOf('stock')}
       </label>
       <label className={`${label} md:col-span-2`}>
         Description
-        <textarea className="field" rows={2} value={values.description} onChange={set('description')} />
+        <textarea className={input} rows={2} value={values.description} onChange={set('description')} />
         {errorOf('description')}
       </label>
       <div className="flex items-center gap-3 md:col-span-2">

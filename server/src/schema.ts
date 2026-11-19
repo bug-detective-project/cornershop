@@ -24,7 +24,7 @@ export const productImages = pgTable('product_images', {
   productId: integer('product_id')
     .notNull()
     .references(() => products.id, { onDelete: 'cascade' }),
-  // A path the client serves, such as /images/sourdough-loaf-1.svg.
+  // A path the client serves, such as /images/sourdough-loaf-1.jpg.
   path: text('path').notNull(),
   position: integer('position').notNull().default(0),
 });
