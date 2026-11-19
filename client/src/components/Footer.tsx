@@ -10,7 +10,8 @@ export function Footer() {
           <Icon name="pin" />
           14 Juniper Street
         </p>
-        <p className="flex items-center gap-2">
+        {/* The opening hours are on every product page; below 768px the footer keeps only the address. */}
+        <p className="hidden items-center gap-2 md:flex">
           <Icon name="clock" />
           Open every day, 7:00 to 20:00
         </p>
