@@ -32,9 +32,10 @@ test.describe('Ticket front-9: the price field of the owner panel has the mask o
   });
 
   test('the price of the product to edit shows with the mask', async ({ page }) => {
-    await page.getByRole('button', { name: 'Edit Whole Milk 1 L', exact: true }).click();
+    // Matches is among the newest products, on the first page of the panel.
+    await page.getByRole('button', { name: 'Edit Matches', exact: true }).click();
 
-    await expect(page.getByLabel('Price', { exact: true })).toHaveValue('$1.89');
+    await expect(page.getByLabel('Price', { exact: true })).toHaveValue('$1.20');
   });
 
   test('a price typed with the mask is saved in cents', async ({ page }) => {

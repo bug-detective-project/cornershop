@@ -6,7 +6,7 @@
 
 1. **Ache o que já está pronto.** O `Filters.tsx` renderiza `<PriceInput value={props.minPrice} onChange={props.onMinPrice} />`. O campo recebe e devolve o preço como texto simples ("4.50"), o mesmo texto que o formulário guarda em `values.price` e lê com `parsePrice`.
 2. **Use ele no formulário.** Importe o `PriceInput` e troque o `<input>` do **Price** por `<PriceInput className={input} placeholder="$0.00" value={values.price} onChange={(price) => setValues((current) => ({ ...current, price }))} aria-describedby={…} />`. O `PriceInput` repassa as outras props (classe, placeholder, `aria-describedby`) para o `<input>` dele.
-3. **Nada mais muda.** Salvar continua chamando `parsePrice(values.price)`; editar continua preenchendo `values.price` com `"1.89"`, que o campo mostra como **$1.89**; um campo vazio continua mostrando **Enter a price like 4.50**.
+3. **Nada mais muda.** Salvar continua chamando `parsePrice(values.price)`; editar continua preenchendo `values.price` com `"1.20"`, que o campo mostra como **$1.20**; um campo vazio continua mostrando **Enter a price like 4.50**.
 4. **Adicione um teste de regressão.** A referência adiciona `client/src/pages/Admin.price.test.tsx`: digitar dígito a dígito, letras e Backspace, o preço de um produto em edição e os centavos enviados ao salvar.
 
 Depois rode `npm test`, digite alguns preços no painel e mova o card para **Em QA**.

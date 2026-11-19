@@ -30,7 +30,7 @@ Por favor, faça o **Price** do painel funcionar igualzinho aos filtros de preç
 - O campo **Price** do formulário recebe os dígitos pela direita, como centavos: digitar 4, 5, 0 mostra **$4.50**.
 - Tudo que não é dígito é ignorado, e o Backspace tira o último dígito.
 - No celular o campo abre o teclado de números.
-- Editar um produto mostra o preço com a máscara (o Whole Milk 1 L mostra **$1.89**), e um preço digitado com a máscara é salvo em centavos.
+- Editar um produto mostra o preço com a máscara (o Matches mostra **$1.20**), e um preço digitado com a máscara é salvo em centavos.
 - O campo mantém o rótulo **Price** e mostra o erro **Enter a price like 4.50** quando fica vazio, como hoje.
 
 ## Critérios de aceitação
@@ -38,7 +38,7 @@ Por favor, faça o **Price** do painel funcionar igualzinho aos filtros de preç
 - [ ] Digitar 4, 5, 0 em **Price** mostra $0.04, depois $0.45, depois $4.50.
 - [ ] Letras, vírgulas e pontos são ignorados; o Backspace tira o último dígito.
 - [ ] O campo abre o teclado de números no celular.
-- [ ] **Edit** no Whole Milk 1 L mostra **$1.89** em **Price**.
+- [ ] **Edit** no Matches mostra **$1.20** em **Price**.
 - [ ] Um produto salvo com 4, 5, 0 digitados em **Price** aparece com **$4.50** na lista.
 
 ## Ambiente
