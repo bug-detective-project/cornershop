@@ -51,6 +51,8 @@
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
   --color-surface-sunken: var(--surface-sunken);
+  /* A row of a table under the pointer: solid, so what lies on top of the row can match it. */
+  --color-row-hover: color-mix(in srgb, var(--surface-sunken) 40%, var(--surface-raised));
   --color-content: var(--content);
   --color-muted: var(--muted);
   --color-border: var(--border);

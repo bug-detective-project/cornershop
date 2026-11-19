@@ -65,14 +65,52 @@ describe('the owner panel', () => {
     expect(screen.queryByRole('button', { name: 'Cancel' })).not.toBeInTheDocument();
   });
 
-  it('removes a product from the list', async () => {
+  it('asks before removing a product, and removes it once confirmed', async () => {
+    const { requests } = mockApi();
+    renderApp('/admin');
+    await rows();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Delete Umbrella' }));
+    const dialog = screen.getByRole('alertdialog', { name: 'Delete product?' });
+    expect(dialog).toHaveTextContent('Umbrella');
+    expect(within(dialog).getByRole('button', { name: 'Cancel' })).toHaveFocus();
+    expect(requests.some((request) => request.method === 'DELETE')).toBe(false);
+
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Delete product' }));
+
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
+    await waitFor(async () => expect(await rows()).toEqual(['Aged Cheddar', 'Whole Milk', 'Butter Croissant', 'Sourdough Loaf']));
+  });
+
+  it.each([
+    ['Cancel', () => userEvent.click(screen.getByRole('button', { name: 'Cancel' }))],
+    ['Escape', () => userEvent.keyboard('{Escape}')],
+  ])('keeps the product when the question is dismissed with %s', async (_way, dismiss) => {
+    const { requests } = mockApi();
+    renderApp('/admin');
+    await rows();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Delete Umbrella' }));
+    await dismiss();
+
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Delete Umbrella' })).toHaveFocus();
+    expect(await rows()).toContain('Umbrella');
+    expect(requests.some((request) => request.method === 'DELETE')).toBe(false);
+  });
+
+  it('keeps Tab inside the question while it is open', async () => {
     mockApi();
     renderApp('/admin');
     await rows();
 
     await userEvent.click(screen.getByRole('button', { name: 'Delete Umbrella' }));
-
-    await waitFor(async () => expect(await rows()).toEqual(['Aged Cheddar', 'Whole Milk', 'Butter Croissant', 'Sourdough Loaf']));
+    await userEvent.tab();
+    expect(screen.getByRole('button', { name: 'Delete product' })).toHaveFocus();
+    await userEvent.tab();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toHaveFocus();
+    await userEvent.tab({ shift: true });
+    expect(screen.getByRole('button', { name: 'Delete product' })).toHaveFocus();
   });
 
   it('refuses a price that is not a price, before calling the API', async () => {
