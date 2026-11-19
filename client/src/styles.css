@@ -102,6 +102,13 @@ body {
   @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold;
 }
 
+/* While the theme changes nothing transitions (see applyTheme in theme.ts). */
+[data-theme-switching] *,
+[data-theme-switching] *::before,
+[data-theme-switching] *::after {
+  transition: none !important;
+}
+
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
