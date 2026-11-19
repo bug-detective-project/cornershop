@@ -5,6 +5,7 @@ import { ApiError } from '../api/http.ts';
 import { useCreateProduct, useUpdateProduct } from '../api/products.ts';
 import type { Product } from '../api/types.ts';
 import { parsePrice } from '../utils/formatPrice.ts';
+import { PriceInput } from './PriceInput.tsx';
 
 interface FormValues {
   name: string;
@@ -97,7 +98,7 @@ export function ProductForm({ editing, onDone }: { editing: Product | null; onDo
       </label>
       <label className={label}>
         Price
-        <input className={input} inputMode="decimal" placeholder="4.50" value={values.price} onChange={set('price')} aria-describedby={errors.priceCents ? 'error-priceCents' : undefined} />
+        <PriceInput className={input} placeholder="$0.00" value={values.price} onChange={(price) => setValues((current) => ({ ...current, price }))} aria-describedby={errors.priceCents ? 'error-priceCents' : undefined} />
         {errorOf('priceCents')}
       </label>
       <label className={label}>

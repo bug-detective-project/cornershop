@@ -2,6 +2,7 @@ import { useCategories } from '../api/categories.ts';
 import { SORTS } from '../api/types.ts';
 import type { Sort } from '../api/types.ts';
 import { Icon } from './Icon.tsx';
+import { PriceInput } from './PriceInput.tsx';
 
 interface FiltersProps {
   q: string;
@@ -54,11 +55,11 @@ export function Filters(props: FiltersProps) {
       </label>
       <label className={label}>
         Min price
-        <input type="text" inputMode="decimal" placeholder="0.00" className={input} value={props.minPrice} onChange={(event) => props.onMinPrice(event.target.value)} />
+        <PriceInput placeholder="$0.00" className={input} value={props.minPrice} onChange={props.onMinPrice} />
       </label>
       <label className={label}>
         Max price
-        <input type="text" inputMode="decimal" placeholder="0.00" className={input} value={props.maxPrice} onChange={(event) => props.onMaxPrice(event.target.value)} />
+        <PriceInput placeholder="$0.00" className={input} value={props.maxPrice} onChange={props.onMaxPrice} />
       </label>
     </form>
   );
