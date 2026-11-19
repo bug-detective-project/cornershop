@@ -5,9 +5,10 @@ import { Icon } from './Icon.tsx';
 
 /**
  * The question asked before a product is deleted, over the page. It opens on Cancel, the safe
- * answer; Escape, Cancel and a press around it all keep the product. Tab stays inside it.
+ * answer; Escape, Cancel and a press around it all keep the product. Tab stays inside it. The
+ * product's first photo, when it has one, shows which product is about to go.
  */
-export function ConfirmDelete({ name, onConfirm, onCancel }: { name: string; onConfirm: () => void; onCancel: () => void }) {
+export function ConfirmDelete({ name, image, onConfirm, onCancel }: { name: string; image?: string; onConfirm: () => void; onCancel: () => void }) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const cancelRef = useRef<HTMLButtonElement>(null);
 
@@ -48,9 +49,18 @@ export function ConfirmDelete({ name, onConfirm, onCancel }: { name: string; onC
         onKeyDown={key}
       >
         <div className="flex items-start gap-4">
-          <span aria-hidden="true" className="flex size-10 shrink-0 items-center justify-center rounded-full bg-danger-soft text-danger">
-            <Icon name="trash" />
-          </span>
+          {image ? (
+            <span className="relative shrink-0">
+              <img src={image} alt="" data-testid="confirm-delete-photo" className="size-20 rounded-xl border border-border object-cover" />
+              <span aria-hidden="true" className="absolute -right-2 -bottom-2 flex size-8 items-center justify-center rounded-full border-2 border-surface-raised bg-danger-soft text-danger">
+                <Icon name="trash" />
+              </span>
+            </span>
+          ) : (
+            <span aria-hidden="true" className="flex size-10 shrink-0 items-center justify-center rounded-full bg-danger-soft text-danger">
+              <Icon name="trash" />
+            </span>
+          )}
           <div className="min-w-0">
             <h2 id="confirm-delete-title" className="text-lg font-extrabold tracking-tight">
               Delete product?

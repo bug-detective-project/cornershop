@@ -73,6 +73,8 @@ describe('the owner panel', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Delete Umbrella' }));
     const dialog = screen.getByRole('alertdialog', { name: 'Delete product?' });
     expect(dialog).toHaveTextContent('Umbrella');
+    // The umbrella has no photo: the question shows only the trash sign.
+    expect(within(dialog).queryByTestId('confirm-delete-photo')).not.toBeInTheDocument();
     expect(within(dialog).getByRole('button', { name: 'Cancel' })).toHaveFocus();
     expect(requests.some((request) => request.method === 'DELETE')).toBe(false);
 
@@ -80,6 +82,17 @@ describe('the owner panel', () => {
 
     expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
     await waitFor(async () => expect(await rows()).toEqual(['Aged Cheddar', 'Whole Milk', 'Butter Croissant', 'Sourdough Loaf']));
+  });
+
+  it('shows the first photo of the product in the question', async () => {
+    mockApi();
+    renderApp('/admin');
+    await rows();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Delete Sourdough Loaf' }));
+
+    const dialog = screen.getByRole('alertdialog', { name: 'Delete product?' });
+    expect(within(dialog).getByTestId('confirm-delete-photo')).toHaveAttribute('src', '/images/loaf-1.svg');
   });
 
   it.each([

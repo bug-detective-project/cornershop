@@ -149,6 +149,7 @@ export function Admin() {
       {deleting && (
         <ConfirmDelete
           name={deleting.name}
+          image={deleting.images[0]}
           onConfirm={() => {
             remove.mutate(deleting.id);
             setDeleting(null);
