@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDeleteProduct, useProducts } from '../api/products.ts';
 import type { Product } from '../api/types.ts';
 import { Icon } from '../components/Icon.tsx';
@@ -17,6 +17,15 @@ export function Admin() {
   const [formNumber, setFormNumber] = useState(0);
   const products = useProducts({ page, pageSize: PAGE_SIZE, sort: 'newest' });
   const remove = useDeleteProduct();
+  const formAreaRef = useRef<HTMLDivElement>(null);
+
+  // The form is above the list: picking a product far down the list takes the owner up to it.
+  useEffect(() => {
+    if (editing) {
+      formAreaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      formAreaRef.current?.querySelector('input')?.focus({ preventScroll: true });
+    }
+  }, [editing]);
 
   const done = (text: string | null) => {
     setMessage(text);
@@ -38,7 +47,10 @@ export function Admin() {
           </p>
         )}
       </div>
-      <ProductForm key={`${editing?.id ?? 'new'}-${formNumber}`} editing={editing} onDone={done} />
+      {/* scroll-mt keeps the form's title clear of the sticky header. */}
+      <div ref={formAreaRef} className="scroll-mt-36">
+        <ProductForm key={`${editing?.id ?? 'new'}-${formNumber}`} editing={editing} onDone={done} />
+      </div>
       {message && (
         <p role="status" className="rounded-xl border border-accent/30 bg-accent-soft px-4 py-3 font-semibold text-accent-strong">
           {message}
@@ -52,7 +64,8 @@ export function Admin() {
       )}
       {products.data && (
         <>
-          <div className="card overflow-x-auto">
+          {/* relative: the screen-reader-only texts in the table are positioned absolutely; without it they escape the scroll and widen the page on a phone. */}
+          <div className="card relative overflow-x-auto">
             <table className="w-full text-left">
               <thead className="border-b border-border bg-surface-sunken/60 text-xs font-bold tracking-wide text-muted uppercase">
                 <tr>
@@ -70,9 +83,9 @@ export function Admin() {
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-3">
                         {product.images[0] ? (
-                          <img src={product.images[0]} alt="" className="size-11 shrink-0 rounded-lg border border-border object-cover" />
+                          <img src={product.images[0]} alt="" className="hidden size-11 shrink-0 rounded-lg border border-border object-cover md:block" />
                         ) : (
-                          <span aria-hidden="true" className="size-11 shrink-0 rounded-lg border border-dashed border-border-strong bg-surface-sunken" />
+                          <span aria-hidden="true" className="hidden size-11 shrink-0 rounded-lg border border-dashed border-border-strong bg-surface-sunken md:block" />
                         )}
                         <div className="min-w-0">
                           <span data-testid="admin-product-name" className="block font-bold">
@@ -90,7 +103,8 @@ export function Admin() {
                       <div className="flex justify-end gap-2">
                         <button
                           type="button"
-                          className="button text-sm"
+                          className="button size-9 p-0 text-sm md:size-auto md:px-3 md:py-2"
+                          title="Edit"
                           aria-label={`Edit ${product.name}`}
                           onClick={() => {
                             setMessage(null);
@@ -98,11 +112,18 @@ export function Admin() {
                           }}
                         >
                           <Icon name="pencil" />
-                          Edit
+                          {/* Below 768px the icons alone fit the row; the label of the button names it for a screen reader. */}
+                          <span className="hidden md:inline">Edit</span>
                         </button>
-                        <button type="button" className="button text-sm text-danger" aria-label={`Delete ${product.name}`} onClick={() => remove.mutate(product.id)}>
+                        <button
+                          type="button"
+                          className="button size-9 p-0 text-sm text-danger md:size-auto md:px-3 md:py-2"
+                          title="Delete"
+                          aria-label={`Delete ${product.name}`}
+                          onClick={() => remove.mutate(product.id)}
+                        >
                           <Icon name="trash" />
-                          Delete
+                          <span className="hidden md:inline">Delete</span>
                         </button>
                       </div>
                     </td>

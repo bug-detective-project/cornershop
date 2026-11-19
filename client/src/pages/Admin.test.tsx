@@ -1,6 +1,6 @@
 import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { mockApi } from '../test/mockApi.ts';
 import { renderApp } from '../test/renderApp.tsx';
 
@@ -38,6 +38,19 @@ describe('the owner panel', () => {
     expect(requests.find((request) => request.method === 'PATCH')).toMatchObject({ path: '/api/products/3', body: { name: 'Whole Milk 1 L', categoryId: 2 } });
     // After saving, the form is ready for a new product.
     expect(screen.getByLabelText('Name')).toHaveValue('');
+  });
+
+  it('takes the owner up to the form, on the name, when a product is picked to edit', async () => {
+    mockApi();
+    renderApp('/admin');
+    await rows();
+    const scroll = vi.spyOn(Element.prototype, 'scrollIntoView');
+
+    await userEvent.click(screen.getByRole('button', { name: 'Edit Whole Milk' }));
+
+    const heading = screen.getByRole('heading', { name: 'Edit product' });
+    expect(scroll.mock.contexts.some((element) => element instanceof Element && element.contains(heading))).toBe(true);
+    expect(screen.getByLabelText('Name')).toHaveFocus();
   });
 
   it('leaves the edit with Cancel', async () => {
