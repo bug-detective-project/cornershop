@@ -23,7 +23,7 @@ Our developer before you said the API tests for pagination all pass.
 ## Steps to reproduce
 
 1. Open the shop and note the last two products of the first page.
-2. Click **Next page**.
+2. Click **Next**.
 3. Compare the first two products of page 2 with the ones you noted.
 4. Go to the last page and look for `Whole Milk 1 L` and `Wildflower Honey`.
 

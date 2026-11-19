@@ -36,7 +36,7 @@ Cada cartão é mais largo que a tela: o lado direito fica cortado e a página r
 
 ## Critérios de aceitação
 
-- [ ] Com 320, 375 e 414 px de largura, nenhum cartão passa da borda da tela e a página não rola para os lados.
+- [ ] Com 375 e 414 px de largura, nenhum cartão passa da borda da tela e a página não rola para os lados.
 - [ ] No tablet a grade tem mais de uma coluna.
 - [ ] No desktop (1280 px) a grade continua com pelo menos três colunas.
 

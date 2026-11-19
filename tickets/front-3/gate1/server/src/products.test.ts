@@ -45,7 +45,7 @@ describe('GET /api/products', () => {
         priceCents: 450,
         stock: 12,
         category: { id: expect.any(Number), name: 'Bakery', slug: 'bakery' },
-        images: ['/images/sourdough-loaf-1.svg', '/images/sourdough-loaf-2.svg', '/images/sourdough-loaf-3.svg'],
+        images: ['/images/sourdough-loaf-1.jpg', '/images/sourdough-loaf-2.jpg', '/images/sourdough-loaf-3.jpg'],
         createdAt: expect.any(String),
       },
     ]);

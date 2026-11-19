@@ -1,50 +1,72 @@
 diff --git a/client/src/components/Header.tsx b/client/src/components/Header.tsx
-index 293a3ce..bbdb098 100644
+index 50ad0d1..c4a137c 100644
 --- a/client/src/components/Header.tsx
 +++ b/client/src/components/Header.tsx
-@@ -1,15 +1,15 @@
- import { Link, NavLink } from 'react-router';
- import { useTheme } from '../theme.ts';
+@@ -3,21 +3,21 @@ import { useTheme } from '../theme.ts';
+ import { Icon } from './Icon.tsx';
  
--const navLink = ({ isActive }: { isActive: boolean }) => `rounded-lg px-3 py-2 font-medium ${isActive ? 'bg-surface text-content' : 'text-muted'}`;
-+const navLink = ({ isActive }: { isActive: boolean }) => `rounded-lg px-3 py-2 font-medium ${isActive ? 'bg-slate-100 text-slate-900' : 'text-slate-600'}`;
+ const navLink = ({ isActive }: { isActive: boolean }) =>
+-  `rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${isActive ? 'bg-accent-soft text-accent-strong' : 'text-muted hover:bg-surface-sunken hover:text-content'}`;
++  `rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${isActive ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}`;
  
  export function Header() {
    const { theme, toggle } = useTheme();
  
    return (
--    <header className="border-b border-border bg-surface-raised text-content">
-+    <header className="border-b border-slate-300 bg-white text-slate-900">
-       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3">
--        <Link to="/" className="mr-auto text-xl font-bold text-content">
-+        <Link to="/" className="mr-auto text-xl font-bold text-slate-900">
-           CornerShop
+-    <header className="sticky top-0 z-20 border-b border-border bg-surface-raised text-content">
++    <header className="sticky top-0 z-20 border-b border-slate-300 bg-white text-slate-900">
+       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 sm:px-6">
+-        <Link to="/" className="mr-auto flex items-center gap-3 text-content">
++        <Link to="/" className="mr-auto flex items-center gap-3 text-slate-900">
+           <span aria-hidden="true" className="flex size-10 items-center justify-center rounded-xl bg-accent text-accent-content shadow-sm">
+             <Icon name="basket" className="size-5" />
+           </span>
+           <span className="flex flex-col leading-tight">
+             <span className="text-xl font-extrabold tracking-tight">CornerShop</span>
+-            <span className="hidden text-xs font-medium text-muted sm:block">Juniper Street Market</span>
++            <span className="hidden text-xs font-medium text-slate-600 sm:block">Juniper Street Market</span>
+           </span>
          </Link>
-         <nav aria-label="Main" className="flex items-center gap-1">
+         {/* On a phone the theme button stays on the line of the name, and the pages go to a line of their own. */}
 diff --git a/client/src/components/ProductCard.tsx b/client/src/components/ProductCard.tsx
-index fcb9f93..652ac32 100644
+index 807fee5..a3aec92 100644
 --- a/client/src/components/ProductCard.tsx
 +++ b/client/src/components/ProductCard.tsx
-@@ -8,11 +8,11 @@ export function ProductCard({ product }: { product: Product }) {
-   const [photo] = product.images;
+@@ -10,12 +10,12 @@ export function ProductCard({ product }: { product: Product }) {
+   const photo = product.images[selected] ?? product.images[0];
  
    return (
--    <article data-testid="product-card" className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface-raised text-content">
-+    <article data-testid="product-card" className="flex h-full flex-col overflow-hidden rounded-xl border border-slate-300 bg-white text-slate-900">
-       {photo ? (
-         <img src={photo} alt={product.name} className="aspect-[4/3] w-full object-cover" />
-       ) : (
--        <div className="flex aspect-[4/3] w-full items-center justify-center bg-surface text-muted">No photo</div>
-+        <div className="flex aspect-[4/3] w-full items-center justify-center bg-slate-100 text-slate-600">No photo</div>
-       )}
-       <div className="flex items-baseline gap-3 px-4 pt-4">
-         <h3 data-testid="product-name" title={product.name} className="min-w-0 flex-1 font-semibold">
-@@ -29,7 +29,7 @@ export function ProductCard({ product }: { product: Product }) {
-           Details
-         </button>
-         {detailsOpen && (
--          <p data-testid="product-description" className="mt-3 text-sm text-muted">
-+          <p data-testid="product-description" className="mt-3 text-sm text-slate-600">
-             {product.description || 'No description yet.'}
-           </p>
+-    <article data-testid="product-card" className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface-raised text-content shadow-card transition-shadow hover:shadow-lift">
++    <article data-testid="product-card" className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-300 bg-white text-slate-900 shadow-card transition-shadow hover:shadow-lift">
+       <div className="relative">
+         {photo ? (
+           <img src={photo} alt={product.name} className="aspect-[4/3] w-full object-cover" />
+         ) : (
+-          <div className="flex aspect-[4/3] w-full items-center justify-center bg-surface-sunken text-sm font-semibold tracking-wide text-muted uppercase">No photo</div>
++          <div className="flex aspect-[4/3] w-full items-center justify-center bg-slate-100 text-sm font-semibold tracking-wide text-slate-600 uppercase">No photo</div>
          )}
+         {product.images.length > 1 && (
+           <div role="group" aria-label={`Photos of ${product.name}`} className="absolute inset-x-0 bottom-2 flex justify-center gap-1.5">
+@@ -33,7 +33,7 @@ export function ProductCard({ product }: { product: Product }) {
+         )}
+       </div>
+       <div className="flex flex-wrap items-center gap-2 px-4 pt-4">
+-        <span className="text-xs font-bold tracking-[0.12em] text-muted uppercase">{product.category?.name ?? 'New this week'}</span>
++        <span className="text-xs font-bold tracking-[0.12em] text-slate-600 uppercase">{product.category?.name ?? 'New this week'}</span>
+         <span className="ml-auto">
+           <StockPill stock={product.stock} />
+         </span>
+@@ -44,11 +44,11 @@ export function ProductCard({ product }: { product: Product }) {
+             {product.name}
+           </Link>
+         </h3>
+-        <p data-testid="product-price" className="shrink-0 text-lg font-extrabold text-content tabular-nums">
++        <p data-testid="product-price" className="shrink-0 text-lg font-extrabold text-slate-900 tabular-nums">
+           {formatPrice(product.priceCents)}
+         </p>
+       </div>
+-      <p data-testid="product-description" className="line-clamp-2 px-4 pt-1 pb-4 text-sm leading-relaxed text-muted">
++      <p data-testid="product-description" className="line-clamp-2 px-4 pt-1 pb-4 text-sm leading-relaxed text-slate-600">
+         {product.description || 'No description yet.'}
+       </p>
+     </article>

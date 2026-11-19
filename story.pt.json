@@ -77,7 +77,7 @@
       },
       "front-3": {
         "subject": "Novo ticket: CS-103",
-        "body": "Uma freguesa abriu os detalhes de um produto, ordenou a lista por preço, e os detalhes abertos apareceram embaixo de outro produto. A Lucy reproduz toda vez.\n\nA lista em si fica na ordem certa, então olhe o que fica parado quando deveria se mover.\n\nRafaela"
+        "body": "Uma freguesa escolheu a segunda foto de um pão, ordenou a lista por preço, e o pão voltou para a primeira foto enquanto outro produto mostrava a segunda dele. A Lucy reproduz toda vez.\n\nA lista em si fica na ordem certa, então olhe o que fica parado quando deveria se mover.\n\nRafaela"
       },
       "front-4": {
         "subject": "Novo ticket: CS-104",
@@ -98,6 +98,10 @@
       "front-8": {
         "subject": "Novo ticket: CS-108",
         "body": "A Marta quer que os fregueses possam olhar um produto direito: fotos, descrição, se tem no estoque. Os cartões da loja já apontam para uma página de produto, mas a página nunca foi construída, então o link cai em \"Page not found\".\n\nEste é um ticket de construir: a API e o gancho de dados estão prontos, e o ticket lista exatamente o que a página precisa mostrar. Comece pequeno, pela rota.\n\nRafaela"
+      },
+      "front-9": {
+        "subject": "Novo ticket: CS-109",
+        "body": "A Marta digita preço o dia inteiro no painel do dono, e o campo Price de lá ainda é uma caixa de texto comum, enquanto os filtros de preço da loja recebem preços com uma máscara que ela adora.\n\nEste é um ticket de construir, e curto se você olhar em volta antes de escrever qualquer coisa: a máscara talvez já exista em algum lugar do app.\n\nRafaela"
       }
     },
     "completion": {

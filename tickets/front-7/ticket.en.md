@@ -23,13 +23,13 @@ Please finish the job: both must follow the theme, with text that is easy to rea
 ## What is already there
 
 - The theme button in the header: it sets `data-theme="dark"` or `"light"` on `<html>` and remembers the choice (`client/src/theme.ts`).
-- The color tokens in `client/src/styles.css`: `surface`, `surface-raised`, `content`, `muted`, `border`, `accent`, each with a value per theme. They are Tailwind colors: `bg-surface-raised`, `text-content`, `border-border`…
+- The color tokens in `client/src/styles.css`: `surface`, `surface-raised`, `surface-sunken`, `content`, `muted`, `border`, `accent`, `accent-soft`, `accent-strong` and a few more, each with a value per theme. They are Tailwind colors: `bg-surface-raised`, `text-content`, `border-border`…
 - Every other part of the app already uses the tokens. `client/src/pages/Admin.tsx` and `client/src/components/Filters.tsx` are good examples.
 
 ## What to build
 
 - In `client/src/components/Header.tsx`: the header background and border, the shop name and the two navigation links (the current page and the other one) follow the theme.
-- In `client/src/components/ProductCard.tsx`: the card background and border, the name, the price, the description shown by **Details** and the "No photo" placeholder follow the theme.
+- In `client/src/components/ProductCard.tsx`: the card background and border, the name, the price, the description and the "No photo" placeholder follow the theme.
 - No fixed color is left in those two files: use the tokens (or a `dark:` variant for each fixed color).
 
 ## Acceptance criteria

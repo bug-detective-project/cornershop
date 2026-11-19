@@ -24,11 +24,11 @@
       }
     }
   },
-  "version": "1.0.0",
-  "createdAt": "2026-11-18T10:03:27.936Z",
+  "version": "1.1.0",
+  "createdAt": "2026-11-19T15:43:23.727Z",
   "tickets": {
-    "total": 14,
-    "front": 8,
+    "total": 15,
+    "front": 9,
     "back": 6
   },
   "entries": [
@@ -37,15 +37,15 @@
       "track": "front",
       "order": 1,
       "branch": "front-1",
-      "tag": "front-1-v1.0.0",
-      "commit": "baca2f1929ffb7b0bd0c2e5626632368d32f7685",
+      "tag": "front-1-v1.1.0",
+      "commit": "4791ad44af0396c28434c4bb125225af6fc25227",
       "commitMessage": "CornerShop release front-1",
-      "codeDigest": "sha256:372f8b189e8bfda5dfb7d387de5c3aa9158477021687767bcec9839be99ec298",
-      "codeFiles": 155,
+      "codeDigest": "sha256:5968b8d2a221eb5a93e93f9dcb3ff2de8cb59268f8eeaafe77ed51e6e59924b1",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/front-1",
-        "files": 37,
-        "digest": "sha256:644e626625531ceecbc1b6a5004e682d36f65270f6500d5e8f570987bdbd4703"
+        "files": 40,
+        "digest": "sha256:06a1ff9bee07491077297a8e78c0a0c407df2efca8e067273aabf0d3e4eef92f"
       },
       "type": "fix",
       "skills": {
@@ -62,15 +62,15 @@
       "track": "front",
       "order": 2,
       "branch": "front-2",
-      "tag": "front-2-v1.0.0",
-      "commit": "ebecf0c79306fd7ee816dded0f30b2b282c1e8ea",
+      "tag": "front-2-v1.1.0",
+      "commit": "9298459c087bf192906c8c4908eedd8d2a183de5",
       "commitMessage": "CornerShop release front-2",
-      "codeDigest": "sha256:76be59c9fe26c2c9a16c7d9ff4d412eae1db874a62da2bd39103aa906d29c9ef",
-      "codeFiles": 155,
+      "codeDigest": "sha256:c0a0e57c1653433e19ae5cad7757f82b79470b7e6d9a4a840fc89e80d3b53d23",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/front-2",
-        "files": 37,
-        "digest": "sha256:1afd3b1c02bde4fa59108ed42d7e46226b7a198df209817acd071e98a4eb0ebb"
+        "files": 40,
+        "digest": "sha256:92b60814c29e4b6f9bd327279030772a096a3a84d114748133afa1e8521243ca"
       },
       "type": "fix",
       "skills": {
@@ -87,15 +87,15 @@
       "track": "front",
       "order": 3,
       "branch": "front-3",
-      "tag": "front-3-v1.0.0",
-      "commit": "e1d15f1158209a45978e10efa4564810ca13227a",
+      "tag": "front-3-v1.1.0",
+      "commit": "2f4b12f703d53fc7efb90caaf4fe8e9abb1250c1",
       "commitMessage": "CornerShop release front-3",
-      "codeDigest": "sha256:9ee7678e081ad0083a4156a8d12eb9ba91d521c5b2c1a2eefc22427d5a93f097",
-      "codeFiles": 155,
+      "codeDigest": "sha256:5789b923a36ec1c62d9a0ed9729b75db66a6d513abf082d5339d318331df191f",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/front-3",
-        "files": 37,
-        "digest": "sha256:bcc547c92f83315cb1f44ceeb0d994fdd8be5628e03abd758ff7b3f96e7496da"
+        "files": 40,
+        "digest": "sha256:fb6766d16e706672152e38cab267fb273ed9935d8426b4d5b1032c5ad249bd17"
       },
       "type": "fix",
       "skills": {
@@ -112,15 +112,15 @@
       "track": "front",
       "order": 4,
       "branch": "front-4",
-      "tag": "front-4-v1.0.0",
-      "commit": "bb99b3e9784c8ff20bce780db538212dd009de49",
+      "tag": "front-4-v1.1.0",
+      "commit": "4faecf339bff9b1e906125073fed6319675450ef",
       "commitMessage": "CornerShop release front-4",
-      "codeDigest": "sha256:0ac9a666bd77dc6aac35d552cfe2e07846ab08e951160f3915e594bc4793c458",
-      "codeFiles": 155,
+      "codeDigest": "sha256:1e166e61248762f44283eaffb9206ad70255a822aef74220838c3432a3ba778b",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/front-4",
-        "files": 37,
-        "digest": "sha256:317b2e621aa9dbfc0b55813dfab7fdacad6f82f73ad39bde94029d2d38a80ae3"
+        "files": 40,
+        "digest": "sha256:983fa7328edf6d0f7cb321c8088928ffe78fda67a40bc6f93479d1fbb6a8e777"
       },
       "type": "fix",
       "skills": {
@@ -137,15 +137,15 @@
       "track": "front",
       "order": 5,
       "branch": "front-5",
-      "tag": "front-5-v1.0.0",
-      "commit": "f95fcbe6dc3c477f9fe6a83e83c3cc938ec73977",
+      "tag": "front-5-v1.1.0",
+      "commit": "c3c8d8d6bdb7b7a341948b4eaac7cf83213a4be3",
       "commitMessage": "CornerShop release front-5",
-      "codeDigest": "sha256:edbc7cb9f928bd73a50a071f528954c3b5303dedbb39165d8ebb472eeb55f9a5",
-      "codeFiles": 155,
+      "codeDigest": "sha256:913290fadaaf6c160859ec05dd176c830042cfec87c8cbb9d2eb842089b59dfb",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/front-5",
-        "files": 37,
-        "digest": "sha256:64dd16a2ee884df62873d3a1e96e2b405a5a79043d0db6df9f42d5742ea41e89"
+        "files": 40,
+        "digest": "sha256:00719c9626025baa34b09faf35221245655e63898f7362e9cbc0f4a29d247c39"
       },
       "type": "fix",
       "skills": {
@@ -162,15 +162,15 @@
       "track": "front",
       "order": 6,
       "branch": "front-6",
-      "tag": "front-6-v1.0.0",
-      "commit": "d403e78c8b9f12542f6035eb53b1688a743f7a19",
+      "tag": "front-6-v1.1.0",
+      "commit": "7d5b1c443c535e9788c0207fc77521d0a9f4ff32",
       "commitMessage": "CornerShop release front-6",
-      "codeDigest": "sha256:1b098937b7f806fa815ad2c89c3532e483089728b3190f3a3b8a189e7bf4e166",
-      "codeFiles": 155,
+      "codeDigest": "sha256:40a6863a777605eeb74177f1b2db83d73cee9d0dd0863af57e4ffc9fce7382a4",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/front-6",
-        "files": 37,
-        "digest": "sha256:6dd7212c1dac89dd78825ceab903db8b7e52f4e16870b2957b195271cf233cdc"
+        "files": 40,
+        "digest": "sha256:3e9c51be48d16d49f701bde49db8b8ae83abf54fe169c5c2dab694cecfe26d8f"
       },
       "type": "fix",
       "skills": {
@@ -189,15 +189,15 @@
       "track": "front",
       "order": 7,
       "branch": "front-7",
-      "tag": "front-7-v1.0.0",
-      "commit": "241623fcd649beaa8674cac0fa7c19c0a097d0bc",
+      "tag": "front-7-v1.1.0",
+      "commit": "df49cef6077376c90a0ff4815a03d166c37f30be",
       "commitMessage": "CornerShop release front-7",
-      "codeDigest": "sha256:a559ef37f628001b5dc242959f827c09658f7777826c93946da10f811af1ce90",
-      "codeFiles": 155,
+      "codeDigest": "sha256:cfc0133ff3f004d7ecf42ab259d1421e6bcedae84b54f6dfd94a1ddad6cc5c85",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/front-7",
-        "files": 37,
-        "digest": "sha256:3bdb6a6c4fad01755bca91c5f19896104154fb3e07b637854d6a1629f1ede2e4"
+        "files": 40,
+        "digest": "sha256:852ba11eb35a28c9668f47e7d83ac18bbfbed13d8ebf8e207b3104c91d374b4c"
       },
       "type": "build",
       "skills": {
@@ -214,15 +214,15 @@
       "track": "front",
       "order": 8,
       "branch": "front-8",
-      "tag": "front-8-v1.0.0",
-      "commit": "1cf590e4fdca23e78d4066bd9900584fdc6a140d",
+      "tag": "front-8-v1.1.0",
+      "commit": "2ce850f8463d40b63986179643cb2086f48f177e",
       "commitMessage": "CornerShop release front-8",
-      "codeDigest": "sha256:9250e047a32e8e06c864d0bf5b096216d1fb60d964167a3e9b71ad2e217dcd71",
-      "codeFiles": 153,
+      "codeDigest": "sha256:48a1331f35bd199e91c67da527b643ccc7710a8e6578c1e47b4b12aa5d347a41",
+      "codeFiles": 162,
       "package": {
         "path": "tickets/front-8",
-        "files": 37,
-        "digest": "sha256:a2830a992b97586ac9fb7f9b4f534afdabcfa87e84ad666d7aeac1970d13c759"
+        "files": 40,
+        "digest": "sha256:763e620171b0db2b04fc0d3a1895f62910381c4dbace824ba476e5c96b00bca9"
       },
       "type": "build",
       "skills": {
@@ -237,19 +237,44 @@
       }
     },
     {
+      "id": "front-9",
+      "track": "front",
+      "order": 9,
+      "branch": "front-9",
+      "tag": "front-9-v1.1.0",
+      "commit": "bf438a2f0b69137c1ddd14fbcac9f370feff5286",
+      "commitMessage": "CornerShop release front-9",
+      "codeDigest": "sha256:80380cfc0059482881f513c9fad432d0fa747c68de18d1ed1d2eff52cc6a1e6c",
+      "codeFiles": 164,
+      "package": {
+        "path": "tickets/front-9",
+        "files": 40,
+        "digest": "sha256:b8906c65099423cba296cd00777135fd8e8c6f3c0683ab53bf8984cae3c161c6"
+      },
+      "type": "build",
+      "skills": {
+        "en": [
+          "Forms and validation"
+        ],
+        "pt": [
+          "Formulários e validação"
+        ]
+      }
+    },
+    {
       "id": "back-1",
       "track": "back",
       "order": 1,
       "branch": "back-1",
-      "tag": "back-1-v1.0.0",
-      "commit": "8c17bea0f69432640b0f38b519909aea9cf3f4d8",
+      "tag": "back-1-v1.1.0",
+      "commit": "28db824ab9373d67c3d02079619d8b3c3d94c2c5",
       "commitMessage": "CornerShop release back-1",
-      "codeDigest": "sha256:dc0d022f0e37f17f167d0d5637bed6edb5a05c4d482b5957755f138d2666830b",
-      "codeFiles": 155,
+      "codeDigest": "sha256:3c8485154c093ec3ad434a67ee03b90be14fc128cb732e91aaed3fd0a961c79a",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/back-1",
-        "files": 37,
-        "digest": "sha256:1ac3f8d26a40e83e38209dceb3db833e1b9c1729126cdd04ffc4e6d0fcc74118"
+        "files": 40,
+        "digest": "sha256:77d45d1ba63820bbf4cfb26f470cca0d81dc276efb60fe7a36f9911188481a21"
       },
       "type": "fix",
       "skills": {
@@ -266,15 +291,15 @@
       "track": "back",
       "order": 2,
       "branch": "back-2",
-      "tag": "back-2-v1.0.0",
-      "commit": "c6465daf0b2a14b6283d35372328bd6872006e55",
+      "tag": "back-2-v1.1.0",
+      "commit": "156ab04740558001efdff8768edd4eb8b3660726",
       "commitMessage": "CornerShop release back-2",
-      "codeDigest": "sha256:204f988b4d0998271f6bfd052117ec08d56add1dfb47cd6b53daa53b3182a012",
-      "codeFiles": 155,
+      "codeDigest": "sha256:895f5291ec55f7e11b308012e9305e968fb912bd002770d0bfc885f659cd1306",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/back-2",
-        "files": 37,
-        "digest": "sha256:7e7158e5cabb044a319413a6b04486b981691dc1797366cd46d7700f9950dfc1"
+        "files": 40,
+        "digest": "sha256:f6cb34305863796a2447e78e184caeb4808b7eb45d160076c74da43423fd3938"
       },
       "type": "fix",
       "skills": {
@@ -293,15 +318,15 @@
       "track": "back",
       "order": 3,
       "branch": "back-3",
-      "tag": "back-3-v1.0.0",
-      "commit": "76c84d46a1f63410548bb2bea7b623e11d0b134e",
+      "tag": "back-3-v1.1.0",
+      "commit": "496a69d753af3126aa342a5b74112c5a3d3b928f",
       "commitMessage": "CornerShop release back-3",
-      "codeDigest": "sha256:6505c4bca4e5585066cd02395309d65394b4185f169aeaf9b6849734cd56e65d",
-      "codeFiles": 155,
+      "codeDigest": "sha256:21bf6b3cbe582e9955d9a35aba88e7cb4aea20c22336cc43975086fe34559897",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/back-3",
-        "files": 37,
-        "digest": "sha256:fa95768c7a76980330dc74c9949d3964c20129fe7ceb9c938383805cdc6066fd"
+        "files": 40,
+        "digest": "sha256:7ff427ed0336d9dbfe6a6e8cccf2e102dd14bfda380fac215760ff882fcb6636"
       },
       "type": "fix",
       "skills": {
@@ -318,15 +343,15 @@
       "track": "back",
       "order": 4,
       "branch": "back-4",
-      "tag": "back-4-v1.0.0",
-      "commit": "2f46421531e6b456333af7b7d06cfd25a6ae48b3",
+      "tag": "back-4-v1.1.0",
+      "commit": "288c0d4e87be806c11ec2625736c8ce66a9f7249",
       "commitMessage": "CornerShop release back-4",
-      "codeDigest": "sha256:5ee2082bd99d2f8abfcdc484030579e8fb6f53eee5a0a4097b9667d5a56305ea",
-      "codeFiles": 155,
+      "codeDigest": "sha256:8f188f625939a948b514520eba60b82b7273242777edde9f50c363857c2e2816",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/back-4",
-        "files": 37,
-        "digest": "sha256:5e447c6954b411afa425b9174a280b5a94e3660f16347580f364b7ef249fcc10"
+        "files": 40,
+        "digest": "sha256:7171bcaf020e9c22dcd9819b415063f62eb1e9515b8872d7a7ee5ef429a2f980"
       },
       "type": "fix",
       "skills": {
@@ -345,15 +370,15 @@
       "track": "back",
       "order": 5,
       "branch": "back-5",
-      "tag": "back-5-v1.0.0",
-      "commit": "1789e089c8e6acbc66944ce2b334736013c63391",
+      "tag": "back-5-v1.1.0",
+      "commit": "1b73311c965f5add2a61dafe061956cec42b22e9",
       "commitMessage": "CornerShop release back-5",
-      "codeDigest": "sha256:092730adda56e90ea0817d741394f6252ef1eb7a5215962d7cb60b68c2148a31",
-      "codeFiles": 155,
+      "codeDigest": "sha256:03f05806c1f139bd5b6fcd6fd58278165af25a2912701ec33899729a2f2dd593",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/back-5",
-        "files": 37,
-        "digest": "sha256:5c887eff7d13c6d988c36dc61ea32dcd06a81b9f381cbb315cb0ab96bd2b5e53"
+        "files": 40,
+        "digest": "sha256:2e2638a156655fa790b70e5ab96665087e5fdcf9df287e27a8fe453d83a68112"
       },
       "type": "build",
       "skills": {
@@ -370,15 +395,15 @@
       "track": "back",
       "order": 6,
       "branch": "back-6",
-      "tag": "back-6-v1.0.0",
-      "commit": "b4ac82367174deaa015ade479cee06dfca50f5a7",
+      "tag": "back-6-v1.1.0",
+      "commit": "716a5cc12de91efaf01533d659fcf12ea64fe9a3",
       "commitMessage": "CornerShop release back-6",
-      "codeDigest": "sha256:508500dd48f1b846a505fb83082095648700aa507adcd55c9059f26d29251a61",
-      "codeFiles": 155,
+      "codeDigest": "sha256:92f04391c0becd931063bb71606d9cf02f4196ac6af664e79027dd9b3bf23645",
+      "codeFiles": 164,
       "package": {
         "path": "tickets/back-6",
-        "files": 37,
-        "digest": "sha256:a151199d16199ae950a1d2eb47c1a15c729ce8433d0b369d6753f474a8cba796"
+        "files": 40,
+        "digest": "sha256:5cc4f58b03eb8c15271a62903af6a0ca438c99045093150304631dd21d6cd901"
       },
       "type": "build",
       "skills": {

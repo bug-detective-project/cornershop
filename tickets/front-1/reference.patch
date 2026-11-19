@@ -34,21 +34,21 @@ index 0000000..26ff355
 +  });
 +});
 diff --git a/client/src/components/ProductCard.tsx b/client/src/components/ProductCard.tsx
-index a503722..fcb9f93 100644
+index 87858dc..554f2dc 100644
 --- a/client/src/components/ProductCard.tsx
 +++ b/client/src/components/ProductCard.tsx
-@@ -15,12 +15,12 @@ export function ProductCard({ product }: { product: Product }) {
-         <div className="flex aspect-[4/3] w-full items-center justify-center bg-surface text-muted">No photo</div>
-       )}
-       <div className="flex items-baseline gap-3 px-4 pt-4">
--        <h3 data-testid="product-name" title={product.name} className="flex-1 font-semibold">
-+        <h3 data-testid="product-name" title={product.name} className="min-w-0 flex-1 font-semibold">
-           <Link to={`/products/${product.id}`} className="block truncate">
+@@ -22,12 +22,12 @@ export function ProductCard({ product }: { product: Product }) {
+         </span>
+       </div>
+       <div className="flex items-baseline gap-3 px-4 pt-2">
+-        <h3 data-testid="product-name" title={product.name} className="flex-1 text-lg leading-snug font-bold">
++        <h3 data-testid="product-name" title={product.name} className="min-w-0 flex-1 text-lg leading-snug font-bold">
+           <Link to={`/products/${product.id}`} className="block truncate underline-offset-4 hover:underline">
              {product.name}
            </Link>
          </h3>
--        <p data-testid="product-price" className="font-semibold">
-+        <p data-testid="product-price" className="shrink-0 font-semibold">
+-        <p data-testid="product-price" className="text-lg font-extrabold text-content tabular-nums">
++        <p data-testid="product-price" className="shrink-0 text-lg font-extrabold text-content tabular-nums">
            {formatPrice(product.priceCents)}
          </p>
        </div>

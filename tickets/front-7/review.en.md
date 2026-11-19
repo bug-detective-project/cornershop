@@ -23,4 +23,4 @@ A theme is finished when no component knows a color, only the part a color plays
 ## Watch for next time
 
 - When you write a component, reach for a token before a color. If no token fits, that is a design question, not a class to make up.
-- Look at every state of a component in every theme: with and without a photo, details open and closed.
+- Look at every state of a component in every theme: with and without a photo, with one photo or several.

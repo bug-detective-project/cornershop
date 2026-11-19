@@ -23,13 +23,13 @@ Por favor, terminem o trabalho: os dois precisam seguir o tema, com texto fácil
 ## O que já existe
 
 - O botão de tema no cabeçalho: ele põe `data-theme="dark"` ou `"light"` no `<html>` e lembra a escolha (`client/src/theme.ts`).
-- Os tokens de cor em `client/src/styles.css`: `surface`, `surface-raised`, `content`, `muted`, `border`, `accent`, cada um com um valor por tema. Eles são cores do Tailwind: `bg-surface-raised`, `text-content`, `border-border`…
+- Os tokens de cor em `client/src/styles.css`: `surface`, `surface-raised`, `surface-sunken`, `content`, `muted`, `border`, `accent`, `accent-soft`, `accent-strong` e mais alguns, cada um com um valor por tema. Eles são cores do Tailwind: `bg-surface-raised`, `text-content`, `border-border`…
 - Todas as outras partes do app já usam os tokens. `client/src/pages/Admin.tsx` e `client/src/components/Filters.tsx` são bons exemplos.
 
 ## O que construir
 
 - Em `client/src/components/Header.tsx`: o fundo e a borda do cabeçalho, o nome da loja e os dois links de navegação (o da página atual e o outro) seguem o tema.
-- Em `client/src/components/ProductCard.tsx`: o fundo e a borda do cartão, o nome, o preço, a descrição mostrada pelo **Details** e o espaço "No photo" seguem o tema.
+- Em `client/src/components/ProductCard.tsx`: o fundo e a borda do cartão, o nome, o preço, a descrição e o espaço "No photo" seguem o tema.
 - Nenhuma cor fixa sobra nesses dois arquivos: use os tokens (ou uma variante `dark:` para cada cor fixa).
 
 ## Critérios de aceitação

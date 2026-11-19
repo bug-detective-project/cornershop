@@ -69,8 +69,10 @@ describe('the storefront', () => {
     renderApp('/');
     await cards();
 
-    await userEvent.type(screen.getByLabelText('Min price'), '2');
-    await userEvent.type(screen.getByLabelText('Max price'), '7.50');
+    // The digits come in from the right, as cents: 2, 0, 0 is $2.00.
+    await userEvent.type(screen.getByLabelText('Min price'), '200');
+    await userEvent.type(screen.getByLabelText('Max price'), '750');
+    expect(screen.getByLabelText('Max price')).toHaveValue('$7.50');
 
     await waitFor(async () => expect(await namesShown()).toEqual(['Aged Cheddar', 'Butter Croissant', 'Sourdough Loaf']));
     expect(lastListRequest(requests).get('minPrice')).toBe('200');

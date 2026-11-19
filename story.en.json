@@ -77,7 +77,7 @@
       },
       "front-3": {
         "subject": "New ticket: CS-103",
-        "body": "A customer opened the details of a product, sorted the list by price, and the open details were suddenly under a different product. Lucy can reproduce it every time.\n\nThe list itself is in the right order, so look at what stays in place when it should move.\n\nRafaela"
+        "body": "A customer picked the second photo of a loaf, sorted the list by price, and the loaf was back on its first photo while another product showed its second one. Lucy can reproduce it every time.\n\nThe list itself is in the right order, so look at what stays in place when it should move.\n\nRafaela"
       },
       "front-4": {
         "subject": "New ticket: CS-104",
@@ -98,6 +98,10 @@
       "front-8": {
         "subject": "New ticket: CS-108",
         "body": "Marta wants customers to be able to look at a product properly: photos, description, whether it is in stock. The cards of the shop already link to a product page, but the page was never built, so the link lands on \"Page not found\".\n\nThis is a build ticket: the API and the data hook are ready, and the ticket lists exactly what the page must show. Start small, with the route.\n\nRafaela"
+      },
+      "front-9": {
+        "subject": "New ticket: CS-109",
+        "body": "Marta types prices all day in the owner panel, and the Price field there is still a plain text box, while the price filters of the shop take prices with a mask that she loves.\n\nThis is a build ticket, and a short one if you look around before you write anything: the mask may already exist somewhere in the app.\n\nRafaela"
       }
     },
     "completion": {

@@ -22,5 +22,5 @@ Rolagem para os lados no celular quase sempre vem de um elemento com largura mí
 
 ## Para a próxima vez
 
-- Teste toda página em 320 px antes de dar por pronta: é o celular mais estreito ainda em uso.
+- Teste toda página em 375 px antes de dar por pronta: é o celular mais estreito que a loja suporta.
 - Quando uma página rola para os lados, procure o elemento cuja largura não vem do contêiner.

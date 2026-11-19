@@ -23,4 +23,4 @@ Um tema está pronto quando nenhum componente conhece uma cor, só o papel que a
 ## Para a próxima vez
 
 - Ao escrever um componente, procure um token antes de uma cor. Se nenhum token serve, é uma questão de design, não uma classe para inventar.
-- Olhe todo estado de um componente em todo tema: com e sem foto, com os detalhes abertos e fechados.
+- Olhe todo estado de um componente em todo tema: com e sem foto, com uma foto ou várias.

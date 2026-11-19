@@ -1,8 +1,8 @@
 diff --git a/client/src/App.tsx b/client/src/App.tsx
-index 2c1161e..b45d5f8 100644
+index 0dc64b6..1b5acc5 100644
 --- a/client/src/App.tsx
 +++ b/client/src/App.tsx
-@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router';
+@@ -3,6 +3,7 @@ import { Footer } from './components/Footer.tsx';
  import { Header } from './components/Header.tsx';
  import { Admin } from './pages/Admin.tsx';
  import { NotFound } from './pages/NotFound.tsx';
@@ -10,32 +10,34 @@ index 2c1161e..b45d5f8 100644
  import { Storefront } from './pages/Storefront.tsx';
  
  export function App() {
-@@ -10,6 +11,7 @@ export function App() {
-       <Header />
-       <Routes>
-         <Route path="/" element={<Storefront />} />
-+        <Route path="/products/:id" element={<ProductPage />} />
-         <Route path="/admin" element={<Admin />} />
-         <Route path="*" element={<NotFound />} />
-       </Routes>
+@@ -12,6 +13,7 @@ export function App() {
+       <div className="flex-1">
+         <Routes>
+           <Route path="/" element={<Storefront />} />
++          <Route path="/products/:id" element={<ProductPage />} />
+           <Route path="/admin" element={<Admin />} />
+           <Route path="*" element={<NotFound />} />
+         </Routes>
 diff --git a/client/src/components/Gallery.tsx b/client/src/components/Gallery.tsx
 new file mode 100644
-index 0000000..9f886e1
+index 0000000..2764458
 --- /dev/null
 +++ b/client/src/components/Gallery.tsx
-@@ -0,0 +1,30 @@
+@@ -0,0 +1,32 @@
 +import { useState } from 'react';
 +
 +export function Gallery({ images, name }: { images: string[]; name: string }) {
 +  const [selected, setSelected] = useState(0);
 +
 +  if (images.length === 0) {
-+    return <div className="flex aspect-[4/3] w-full items-center justify-center rounded-xl border border-border bg-surface-raised text-muted">No photos yet</div>;
++    return (
++      <div className="flex aspect-[4/3] w-full items-center justify-center rounded-3xl border border-border bg-surface-sunken text-sm font-semibold tracking-wide text-muted uppercase">No photos yet</div>
++    );
 +  }
 +
 +  return (
 +    <div className="flex flex-col gap-3">
-+      <img data-testid="gallery-main" src={images[selected]} alt={name} className="aspect-[4/3] w-full rounded-xl border border-border object-cover" />
++      <img data-testid="gallery-main" src={images[selected]} alt={name} className="aspect-[4/3] w-full rounded-3xl border border-border object-cover shadow-card" />
 +      <ul className="flex flex-wrap gap-2">
 +        {images.map((image, index) => (
 +          <li key={image}>
@@ -43,7 +45,7 @@ index 0000000..9f886e1
 +              type="button"
 +              aria-label={`Show photo ${index + 1}`}
 +              aria-pressed={index === selected}
-+              className={`overflow-hidden rounded-lg border-2 ${index === selected ? 'border-accent' : 'border-border'}`}
++              className={`overflow-hidden rounded-xl border-2 transition-opacity ${index === selected ? 'border-accent' : 'border-border opacity-70 hover:opacity-100'}`}
 +              onClick={() => setSelected(index)}
 +            >
 +              <img src={image} alt="" className="h-16 w-20 object-cover" />
@@ -140,14 +142,15 @@ index 0000000..7f367d2
 +});
 diff --git a/client/src/pages/ProductPage.tsx b/client/src/pages/ProductPage.tsx
 new file mode 100644
-index 0000000..4d29306
+index 0000000..a81f744
 --- /dev/null
 +++ b/client/src/pages/ProductPage.tsx
-@@ -0,0 +1,49 @@
+@@ -0,0 +1,73 @@
 +import { Link, useParams } from 'react-router';
 +import { ApiError } from '../api/http.ts';
 +import { useProduct } from '../api/products.ts';
 +import { Gallery } from '../components/Gallery.tsx';
++import { Icon } from '../components/Icon.tsx';
 +import { formatPrice } from '../utils/formatPrice.ts';
 +import { NotFound } from './NotFound.tsx';
 +
@@ -156,15 +159,15 @@ index 0000000..4d29306
 +  const product = useProduct(id);
 +
 +  if (product.isPending) {
-+    return <main className="mx-auto max-w-6xl px-4 py-6 text-muted">Loading product…</main>;
++    return <main className="mx-auto max-w-6xl px-4 py-8 text-muted sm:px-6">Loading product…</main>;
 +  }
 +  if (product.isError) {
 +    if (product.error instanceof ApiError && product.error.status === 404) {
 +      return <NotFound title="Product not found" />;
 +    }
 +    return (
-+      <main className="mx-auto max-w-6xl px-4 py-6">
-+        <p role="alert" className="text-danger">
++      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
++        <p role="alert" className="rounded-xl border border-danger/30 bg-danger-soft px-4 py-3 font-medium text-danger">
 +          The product could not be loaded.
 +        </p>
 +      </main>
@@ -173,21 +176,44 @@ index 0000000..4d29306
 +
 +  const { name, description, priceCents, stock, category, images } = product.data;
 +  return (
-+    <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6">
-+      <Link to="/" className="self-start text-accent underline">
++    <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6">
++      <Link to="/" className="inline-flex items-center gap-1.5 self-start text-sm font-semibold text-accent underline-offset-4 hover:underline">
++        <Icon name="arrowLeft" />
 +        Back to the shop
 +      </Link>
-+      <div className="grid gap-8 md:grid-cols-2">
++      <div className="grid gap-8 md:grid-cols-2 md:gap-12">
 +        {/* A product of its own gets a gallery of its own: the selected photo starts again. */}
 +        <Gallery key={product.data.id} images={images} name={name} />
-+        <div className="flex flex-col gap-3">
-+          <p className="text-sm text-muted">{category ? category.name : 'Uncategorized'}</p>
-+          <h1 className="text-3xl font-bold">{name}</h1>
-+          <p data-testid="product-price" className="text-2xl font-semibold">
-+            {formatPrice(priceCents)}
-+          </p>
-+          <p className={stock > 0 ? 'font-medium text-accent' : 'font-medium text-danger'}>{stock > 0 ? 'In stock' : 'Out of stock'}</p>
-+          <p className="text-muted">{description || 'No description yet.'}</p>
++        <div className="flex flex-col gap-4">
++          <p className="eyebrow">{category ? category.name : 'Uncategorized'}</p>
++          <h1 className="text-4xl leading-tight font-extrabold tracking-tight">{name}</h1>
++          <div className="flex flex-wrap items-center gap-4">
++            <p data-testid="product-price" className="text-3xl font-extrabold tabular-nums">
++              {formatPrice(priceCents)}
++            </p>
++            <p className={`pill text-sm ${stock > 0 ? 'bg-accent-soft text-accent-strong' : 'bg-danger-soft text-danger'}`}>{stock > 0 ? 'In stock' : 'Out of stock'}</p>
++          </div>
++          <p className="text-lg leading-relaxed text-muted">{description || 'No description yet.'}</p>
++          <dl className="card mt-2 grid gap-4 p-5 sm:grid-cols-2">
++            <div className="flex items-start gap-3">
++              <span aria-hidden="true" className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent">
++                <Icon name="store" className="size-5" />
++              </span>
++              <div>
++                <dt className="font-bold">Pick it up at the shop</dt>
++                <dd className="text-sm text-muted">14 Juniper Street, at the counter.</dd>
++              </div>
++            </div>
++            <div className="flex items-start gap-3">
++              <span aria-hidden="true" className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent">
++                <Icon name="clock" className="size-5" />
++              </span>
++              <div>
++                <dt className="font-bold">Open every day</dt>
++                <dd className="text-sm text-muted">From 7:00 to 20:00.</dd>
++              </div>
++            </div>
++          </dl>
 +        </div>
 +      </div>
 +    </main>

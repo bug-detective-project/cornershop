@@ -68,7 +68,6 @@ function parts(page: Page): [string, Locator][] {
 async function open(page: Page): Promise<void> {
   await page.goto('/?category=bakery');
   await cards(page);
-  await cardOf(page, 'Sourdough Loaf').getByRole('button', { name: 'Details' }).click();
 }
 
 test.describe('Ticket front-7: the header and the product cards follow the dark theme', () => {

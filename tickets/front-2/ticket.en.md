@@ -36,7 +36,7 @@ Each card is wider than the screen: its right side is cut off and the page scrol
 
 ## Acceptance criteria
 
-- [ ] At 320, 375 and 414 px wide, no card passes the edge of the screen and the page does not scroll sideways.
+- [ ] At 375 and 414 px wide, no card passes the edge of the screen and the page does not scroll sideways.
 - [ ] On a tablet the grid has more than one column.
 - [ ] On a desktop (1280 px) the grid still has at least three columns.
 

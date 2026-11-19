@@ -23,7 +23,7 @@ O desenvolvedor que estava antes de você disse que os testes de paginação da 
 ## Passos para reproduzir
 
 1. Abra a loja e anote os dois últimos produtos da primeira página.
-2. Clique em **Next page**.
+2. Clique em **Next**.
 3. Compare os dois primeiros produtos da página 2 com os que você anotou.
 4. Vá até a última página e procure `Whole Milk 1 L` e `Wildflower Honey`.
 

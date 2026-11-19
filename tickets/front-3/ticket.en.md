@@ -1,4 +1,4 @@
-# CS-103: Open details jump to another product when the list is sorted
+# CS-103: The photo picked on a card jumps to another product when the list is sorted
 
 | Field | Value |
 | --- | --- |
@@ -16,29 +16,29 @@
 
 ## Description
 
-A customer wrote to us confused. She opened the **Details** of the Sourdough Loaf to read about it, then sorted the list by price, and the open description was suddenly about a croissant. She thought the shop had mixed up its products.
+A customer wrote to us confused. On the Sourdough Loaf she clicked the dots on the photo to see the second photo, the loaf cooling on a rack. Then she sorted the list by price, and the Sourdough Loaf was back on its first photo, while the big loaf from Grandma Lucia was now showing its second photo, which she had never picked. She thought the shop had mixed up its photos.
 
-I tried it: the products are in the right order after sorting, but the open details stay in the same place on the screen, under whatever product lands there.
+I tried it: the products are in the right order after sorting, but the photo picked stays in the same place on the screen, on whatever product lands there.
 
 ## Steps to reproduce
 
 1. Open the shop and choose the category **Bakery**.
-2. Click **Details** on the Sourdough Loaf.
+2. On the Sourdough Loaf, click the second dot on the photo (**Photo 2**).
 3. Change **Sort by** to **Price: low to high**.
 
 ## Expected result
 
-The details stay open on the Sourdough Loaf, wherever it moves to, and only there.
+The Sourdough Loaf keeps showing its second photo, wherever it moves to, and every other card keeps the photo it had.
 
 ## Actual result
 
-The card that is now in the place where the loaf was has its details open, and the loaf has them closed.
+The Sourdough Loaf is back on its first photo, and the card that is now in the place where it was shows its second photo.
 
 ## Acceptance criteria
 
-- [ ] Open details stay with their product when the list is sorted in any order.
-- [ ] They also stay with their product when the list is filtered by a search.
-- [ ] Closing the details closes them on the same product.
+- [ ] The photo picked on a card stays with its product when the list is sorted in any order.
+- [ ] It also stays with its product when the list is filtered by a search.
+- [ ] Going back to the first photo changes the same product, and no other.
 
 ## Environment
 
@@ -47,4 +47,4 @@ The card that is now in the place where the loaf was has its details open, and t
 ## Activity
 
 **Lucy Tran** · 16/11/2026 14:20
-> It also happens when I type in the search box while some details are open.
+> It also happens when I type in the search box after picking a photo.

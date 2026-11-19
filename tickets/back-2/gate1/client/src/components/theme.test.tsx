@@ -7,9 +7,12 @@ import { ProductCard } from './ProductCard.tsx';
 
 /** Colors of one fixed theme: they do not change with data-theme. */
 const FIXED_COLOR = /^(bg|text|border)-(white|black|(slate|gray|zinc|neutral|stone)-\d+)$/;
-/** Classes with a dark: variant are a way of following the theme too. */
+/**
+ * Classes with a dark: variant are a way of following the theme too. The dots that pick a photo sit
+ * on the photo itself, so they are white in both themes on purpose.
+ */
 const fixedColors = (root: HTMLElement) =>
-  [root, ...root.querySelectorAll<HTMLElement>('*')].flatMap((element) => {
+  [root, ...root.querySelectorAll<HTMLElement>('*')].filter((element) => !element.closest('[aria-label^="Photos of"]')).flatMap((element) => {
     const names = [...element.classList];
     return names.filter((name) => FIXED_COLOR.test(name) && !names.some((other) => other.startsWith(`dark:${name.split('-')[0]}-`)));
   });

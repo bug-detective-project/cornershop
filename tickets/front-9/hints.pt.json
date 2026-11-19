@@ -1,0 +1,7 @@
+{
+  "hints": [
+    "Antes de escrever uma máscara sua, veja como os campos Min price e Max price são feitos em `client/src/components/Filters.tsx`.",
+    "O `PriceInput` e o formulário de produto falam a mesma língua: o preço como texto simples, tipo \"4.50\". O que o formulário entrega ao campo hoje, e o que o `PriceInput` espera em `value` e `onChange`?",
+    "Em `client/src/components/ProductForm.tsx`, troque o `<input>` comum do **Price** pelo `PriceInput`, passe `values.price` e atualize `values.price` com o texto que ele devolve. Mantenha o `aria-describedby` do erro."
+  ]
+}
