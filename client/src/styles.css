@@ -8,59 +8,108 @@
  * token (bg-surface, text-content…), never a fixed color. Changing a theme is changing this file.
  */
 :root {
-  --surface: #f8fafc;
+  --surface: #f5f7f3;
   --surface-raised: #ffffff;
-  --content: #0f172a;
-  --muted: #475569;
-  --border: #cbd5e1;
-  --accent: #0f766e;
+  --surface-sunken: #e9eee8;
+  --content: #16211b;
+  --muted: #53625a;
+  --border: #d6ddd6;
+  --border-strong: #b9c5bb;
+  --accent: #14694c;
+  --accent-strong: #0e5039;
+  --accent-soft: #e2f1e9;
   --accent-content: #ffffff;
-  --danger: #b91c1c;
+  --warn: #8a5200;
+  --warn-soft: #fdf1d8;
+  --danger: #b42318;
+  --danger-soft: #fdecea;
+  --shadow: 22 33 27;
   color-scheme: light;
 }
 
 [data-theme='dark'] {
-  --surface: #0f172a;
-  --surface-raised: #1e293b;
-  --content: #f1f5f9;
-  --muted: #cbd5e1;
-  --border: #475569;
-  --accent: #5eead4;
-  --accent-content: #042f2e;
-  --danger: #fca5a5;
+  --surface: #0e1411;
+  --surface-raised: #17201b;
+  --surface-sunken: #0a0f0c;
+  --content: #edf3ee;
+  --muted: #a8b8ad;
+  --border: #2c3a32;
+  --border-strong: #425247;
+  --accent: #6fd3a8;
+  --accent-strong: #93e0bf;
+  --accent-soft: #173326;
+  --accent-content: #062318;
+  --warn: #f5c46a;
+  --warn-soft: #33270c;
+  --danger: #f6a199;
+  --danger-soft: #3a1512;
+  --shadow: 0 0 0;
   color-scheme: dark;
 }
 
 @theme inline {
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
   --color-content: var(--content);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
   --color-accent-content: var(--accent-content);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
   --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --shadow-card: 0 1px 2px rgb(var(--shadow) / 0.06), 0 6px 18px -10px rgb(var(--shadow) / 0.2);
+  --shadow-lift: 0 2px 4px rgb(var(--shadow) / 0.08), 0 16px 34px -16px rgb(var(--shadow) / 0.3);
 }
 
 body {
   background-color: var(--surface);
   color: var(--content);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* One look for every field and button of the shop. */
+/* One look for every field, button and card of the shop. */
 @utility field {
-  @apply rounded-lg border border-border bg-surface-raised px-3 py-2 text-content;
+  @apply w-full rounded-lg border border-border-strong bg-surface-raised px-3 py-2 text-content shadow-sm transition-colors placeholder:text-muted/70 hover:border-accent/60;
 }
 
 @utility button {
-  @apply rounded-lg border border-border bg-surface-raised px-3 py-2 font-medium text-content disabled:cursor-not-allowed disabled:opacity-50;
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-border-strong bg-surface-raised px-3 py-2 font-semibold text-content shadow-sm transition-colors hover:bg-surface-sunken disabled:cursor-not-allowed disabled:opacity-50;
 }
 
 @utility button-primary {
-  @apply rounded-lg bg-accent px-4 py-2 font-semibold text-accent-content disabled:cursor-not-allowed disabled:opacity-50;
+  @apply inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2 font-semibold text-accent-content shadow-sm transition-colors hover:bg-accent-strong disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+@utility card {
+  @apply rounded-2xl border border-border bg-surface-raised shadow-card;
+}
+
+/* A small uppercase line above a title: the shelf of a product, the name of a section. */
+@utility eyebrow {
+  @apply text-xs font-bold tracking-[0.14em] text-accent uppercase;
+}
+
+/* A short word about a product on a colored ground: its shelf, whether it is in stock. */
+@utility pill {
+  @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold;
 }
 
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
 }
